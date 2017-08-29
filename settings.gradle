@@ -1,0 +1,3 @@
+rootProject.name = 'Opencaching4Locus'
+
+include ':app'
