@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+// apply plugin: 'io.fabric'
 
 dependencies {
     def supportVer = '26.0.1'
@@ -28,17 +28,18 @@ dependencies {
     implementation 'com.github.scribejava:scribejava-httpclient-okhttp:4.2.0'
 
     // Material dialogs
-    implementation 'com.afollestad.material-dialogs:core:0.9.4.5'
+    implementation 'com.afollestad.material-dialogs:core:0.9.4.7'
 
     // Crashlytics
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.6.8'
+    // implementation 'com.crashlytics.sdk.android:crashlytics:2.6.8'
 
     // Networking
     implementation 'com.squareup.okhttp3:okhttp:3.8.1'
 
-    // ButterKnife
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    // Lifecyles, LiveData and ViewModel
+    implementation "android.arch.lifecycle:runtime:1.0.0-alpha9"
+    implementation "android.arch.lifecycle:extensions:1.0.0-alpha9"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha9"
 
     // Auto-Value
     compileOnly 'com.google.auto.value:auto-value:1.5'
@@ -53,13 +54,17 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.1'
 
+    dataBinding {
+        enabled = true
+    }
+
     dexOptions {
         // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
         preDexLibraries preDexEnabled && !isTravis
     }
 
     defaultConfig {
-        minSdkVersion hasProperty('devBuild') ? 26 : 15
+        minSdkVersion hasProperty('devBuild') ? 26 : 19
         targetSdkVersion 26
         versionCode gitVersionCode()
         archivesBaseName = parent.name
@@ -67,15 +72,6 @@ android {
         buildConfigField 'String', 'BUILD_TIME', '"' + gitTimestamp() + '"'
 
         resConfigs 'en'
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [
-                    // TODO remove when http://b.android.com/187527 is supported by ButterKnife.
-                    'butterknife.minSdk': getMinSdkVersion().getApiString()
-                ]
-            }
-        }
     }
 
     compileOptions {
