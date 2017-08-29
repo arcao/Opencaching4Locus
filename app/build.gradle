@@ -24,8 +24,9 @@ dependencies {
     implementation 'commons-io:commons-io:2.5'
 
     // ScribeJava
-    implementation 'com.github.scribejava:scribejava-core:4.2.0'
-    implementation 'com.github.scribejava:scribejava-httpclient-okhttp:4.2.0'
+    def scribeJavaVer = "4.2.0"
+    implementation "com.github.scribejava:scribejava-core:$scribeJavaVer"
+    implementation "com.github.scribejava:scribejava-httpclient-okhttp:$scribeJavaVer"
 
     // Material dialogs
     implementation 'com.afollestad.material-dialogs:core:0.9.4.7'
@@ -37,17 +38,27 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.8.1'
 
     // Lifecyles, LiveData and ViewModel
-    implementation "android.arch.lifecycle:runtime:1.0.0-alpha9"
-    implementation "android.arch.lifecycle:extensions:1.0.0-alpha9"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha9"
+    def lifecycleVer = "1.0.0-alpha9"
+    implementation "android.arch.lifecycle:runtime:$lifecycleVer"
+    implementation "android.arch.lifecycle:extensions:$lifecycleVer"
+    annotationProcessor "android.arch.lifecycle:compiler:$lifecycleVer"
 
     // Auto-Value
-    compileOnly 'com.google.auto.value:auto-value:1.5'
-    annotationProcessor 'com.google.auto.value:auto-value:1.5'
+    def autoValueVer = '1.5'
+    compileOnly "com.google.auto.value:auto-value:$autoValueVer"
+    annotationProcessor "com.google.auto.value:auto-value:$autoValueVer"
 
     // Auto-Value Parcelable
-    compileOnly 'com.ryanharter.auto.value:auto-value-parcel-adapter:0.2.5'
-    annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
+    def autoValueParcelableVer = '0.2.5'
+    compileOnly "com.ryanharter.auto.value:auto-value-parcel-adapter:$autoValueParcelableVer"
+    annotationProcessor "com.ryanharter.auto.value:auto-value-parcel:$autoValueParcelableVer"
+
+    // Dagger 2
+    def daggerVer = '2.11'
+    compileOnly "com.google.dagger:dagger-android:$daggerVer"
+    implementation "com.google.dagger:dagger-android-support:$daggerVer"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVer"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVer"
 }
 
 android {
