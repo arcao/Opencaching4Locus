@@ -1,64 +1,57 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 // apply plugin: 'io.fabric'
 
 dependencies {
     def supportVer = '26.0.1'
+    def locusApiVer = '0.2.10'
+    def timberVer = '4.5.1'
+    def scribeJavaVer = '4.2.0'
+    def okHttpVer = '3.8.1'
+    def retrofitVer = '2.3.0'
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVer"
 
     // Android Support
-    //noinspection GradleCompatible
     implementation "com.android.support:support-v4:$supportVer"
     implementation "com.android.support:appcompat-v7:$supportVer"
-    implementation "com.android.support:recyclerview-v7:$supportVer"
-    implementation "com.android.support:cardview-v7:$supportVer"
     implementation "com.android.support:design:$supportVer"
 
     // Locus API
-    implementation 'com.asamm:locus-api-android:0.2.10'
+    implementation "com.asamm:locus-api-android:$locusApiVer"
 
     // Logging API
-    implementation 'com.jakewharton.timber:timber:4.5.1'
-
-    // Apache commons
-    implementation 'org.apache.commons:commons-lang3:3.6'
-    implementation 'org.apache.commons:commons-collections4:4.1'
-    implementation 'commons-io:commons-io:2.5'
+    implementation "com.jakewharton.timber:timber:$timberVer"
 
     // ScribeJava
-    def scribeJavaVer = "4.2.0"
     implementation "com.github.scribejava:scribejava-core:$scribeJavaVer"
     implementation "com.github.scribejava:scribejava-httpclient-okhttp:$scribeJavaVer"
-
-    // Material dialogs
-    implementation 'com.afollestad.material-dialogs:core:0.9.4.7'
 
     // Crashlytics
     // implementation 'com.crashlytics.sdk.android:crashlytics:2.6.8'
 
     // Networking
-    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVer"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVer"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVer"
 
     // Lifecyles, LiveData and ViewModel
     def lifecycleVer = "1.0.0-alpha9"
     implementation "android.arch.lifecycle:runtime:$lifecycleVer"
     implementation "android.arch.lifecycle:extensions:$lifecycleVer"
-    annotationProcessor "android.arch.lifecycle:compiler:$lifecycleVer"
-
-    // Auto-Value
-    def autoValueVer = '1.5'
-    compileOnly "com.google.auto.value:auto-value:$autoValueVer"
-    annotationProcessor "com.google.auto.value:auto-value:$autoValueVer"
-
-    // Auto-Value Parcelable
-    def autoValueParcelableVer = '0.2.5'
-    compileOnly "com.ryanharter.auto.value:auto-value-parcel-adapter:$autoValueParcelableVer"
-    annotationProcessor "com.ryanharter.auto.value:auto-value-parcel:$autoValueParcelableVer"
+    kapt "android.arch.lifecycle:compiler:$lifecycleVer"
 
     // Dagger 2
     def daggerVer = '2.11'
     compileOnly "com.google.dagger:dagger-android:$daggerVer"
     implementation "com.google.dagger:dagger-android-support:$daggerVer"
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVer"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVer"
+    kapt "com.google.dagger:dagger-compiler:$daggerVer"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVer"
 }
 
 android {
@@ -69,17 +62,21 @@ android {
         enabled = true
     }
 
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
     dexOptions {
         // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
         preDexLibraries preDexEnabled && !isTravis
     }
 
     defaultConfig {
-        minSdkVersion hasProperty('devBuild') ? 26 : 19
+        minSdkVersion hasProperty('devBuild') ? 26 : 21
         targetSdkVersion 26
         versionCode gitVersionCode()
         archivesBaseName = parent.name
-        buildConfigField 'String', 'GIT_SHA', '"' + gitSha() +'"'
+        buildConfigField 'String', 'GIT_SHA', '"' + gitSha() + '"'
         buildConfigField 'String', 'BUILD_TIME', '"' + gitTimestamp() + '"'
 
         resConfigs 'en'
@@ -105,20 +102,22 @@ android {
         release {
             versionNameSuffix ''
 
-            signingConfig signingConfigs.release
+            //signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
-                './proguard-rules/proguard-autovalue.pro',
-                './proguard-rules/proguard-crashlytics-2.pro',
-                './proguard-rules/proguard-java-serializable.pro',
-                './proguard-rules/proguard-project.pro',
-                './proguard-rules/proguard-project-feedback.pro',
-                './proguard-rules/proguard-scribejava.pro',
-                './proguard-rules/proguard-square-okhttp3.pro',
-                './proguard-rules/proguard-square-okio.pro',
-                './proguard-rules/proguard-support-v7-appcompat.pro',
-                './proguard-rules/proguard-support-v7-cardview.pro'
+                    './proguard-rules/proguard-crashlytics-2.pro',
+                    './proguard-rules/proguard-dagger2.pro',
+                    './proguard-rules/proguard-java-serializable.pro',
+                    './proguard-rules/proguard-kotlin.pro',
+                    './proguard-rules/proguard-project.pro',
+                    './proguard-rules/proguard-project-feedback.pro',
+                    './proguard-rules/proguard-scribejava.pro',
+                    './proguard-rules/proguard-square-okhttp3.pro',
+                    './proguard-rules/proguard-square-okio.pro',
+                    './proguard-rules/proguard-square-retrofit2.pro',
+                    './proguard-rules/proguard-support-databinding.pro'
+                    './proguard-rules/proguard-support-v7-appcompat.pro'
         }
     }
 
@@ -140,4 +139,7 @@ if (project.hasProperty('storeFile') &&
     android.signingConfigs.release.keyPassword = keyPassword
 } else {
     android.buildTypes.release.signingConfig = android.signingConfigs.debug
+}
+repositories {
+    mavenCentral()
 }
