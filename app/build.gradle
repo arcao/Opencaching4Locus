@@ -105,19 +105,9 @@ android {
             //signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
-                    './proguard-rules/proguard-crashlytics-2.pro',
-                    './proguard-rules/proguard-dagger2.pro',
-                    './proguard-rules/proguard-java-serializable.pro',
-                    './proguard-rules/proguard-kotlin.pro',
-                    './proguard-rules/proguard-project.pro',
-                    './proguard-rules/proguard-project-feedback.pro',
-                    './proguard-rules/proguard-scribejava.pro',
-                    './proguard-rules/proguard-square-okhttp3.pro',
-                    './proguard-rules/proguard-square-okio.pro',
-                    './proguard-rules/proguard-square-retrofit2.pro',
-                    './proguard-rules/proguard-support-databinding.pro'
-                    './proguard-rules/proguard-support-v7-appcompat.pro'
+
+            proguardFile getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles fileTree(dir: 'proguard', include: '*.pro') as File[]
         }
     }
 

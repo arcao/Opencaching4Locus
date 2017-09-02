@@ -1,5 +1,5 @@
 -optimizations !field/*,!class/merging/*,!code/allocation/variable
--optimizationpasses 6
+-optimizationpasses 5
 
 #prevent severe obfuscation
 -keep,allowshrinking,allowoptimization class * { <methods>; }
@@ -21,14 +21,4 @@
 }
 
 -renamesourcefileattribute SourceFile
--keepattributes SourceFile,LineNumberTable #needed
--keepattributes Signature # Needed by google-api-client #to make XStream work with obfuscation?
--keepattributes EnclosingMethod #required?
--keepattributes InnerClasses #required?
--keepattributes Exceptions # can be removed?
--keepattributes Deprecated # can be removed?
--keepattributes Synthetic # can be removed?
--keepattributes *Annotation*
-
-# Bugfix on some devices with java.lang.NoSuchMethodError
--keepnames class org.apache.commons.lang3.** { *; }
+-keepattributes SourceFile, LineNumberTable, Signature, Exceptions, *Annotation*
