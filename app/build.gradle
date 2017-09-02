@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 // apply plugin: 'io.fabric'
 
 dependencies {
-    def supportVer = '26.0.1'
+    def supportVer = '26.0.2'
     def locusApiVer = '0.2.10'
     def timberVer = '4.5.1'
     def scribeJavaVer = '4.2.0'
@@ -16,7 +16,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVer"
 
     // Android Support
-    implementation "com.android.support:support-v4:$supportVer"
+    implementation "com.android.support:support-compat:$supportVer"
+    implementation "com.android.support:support-core-utils:$supportVer"
+    implementation "com.android.support:support-core-ui:$supportVer"
+    implementation "com.android.support:support-fragment:$supportVer"
+    implementation "com.android.support:support-annotations:$supportVer"
     implementation "com.android.support:appcompat-v7:$supportVer"
     implementation "com.android.support:design:$supportVer"
 
