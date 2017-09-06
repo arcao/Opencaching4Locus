@@ -11,6 +11,7 @@ dependencies {
     def scribeJavaVer = '4.2.0'
     def okHttpVer = '3.8.1'
     def retrofitVer = '2.3.0'
+    def moshiVer = '1.5.0'
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVer"
@@ -43,6 +44,7 @@ dependencies {
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVer"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofitVer"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshiVer"
 
     // Lifecyles, LiveData and ViewModel
     def lifecycleVer = "1.0.0-alpha9"
@@ -123,6 +125,12 @@ android {
         exclude 'log4j.xml'
     }
     lintOptions { abortOnError false }
+}
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xmaxerrs" << "500" // or whatever number you want
+    }
 }
 
 if (project.hasProperty('storeFile') &&
