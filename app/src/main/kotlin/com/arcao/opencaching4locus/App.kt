@@ -3,8 +3,8 @@ package com.arcao.opencaching4locus
 import android.content.Context
 import android.util.Log
 import com.arcao.opencaching4locus.data.DataModule
-import com.arcao.opencaching4locus.data.network.OkApiService
-import com.arcao.opencaching4locus.data.network.OkApiServiceType
+import com.arcao.opencaching4locus.data.okapi.OkApiService
+import com.arcao.opencaching4locus.data.okapi.OkApiServiceType
 import dagger.Provides
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule

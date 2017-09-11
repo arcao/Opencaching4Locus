@@ -1,12 +1,11 @@
-package com.arcao.opencaching4locus.data.network.interceptor
+package com.arcao.opencaching4locus.data.retrofit.interceptor
 
-import android.content.Context
-import com.arcao.opencaching4locus.data.network.OkApiServiceType
+import com.arcao.opencaching4locus.data.account.Account
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
 
-class AuthenticationInterceptor(private val context: Context, serviceType: OkApiServiceType) : Interceptor {
+class AuthenticationInterceptor(private val account: Account) : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()

@@ -1,6 +1,6 @@
-package com.arcao.opencaching4locus.data.network
+package com.arcao.opencaching4locus.data.okapi
 
-enum class OkApiServiceType(val serviceName: String, val serviceUrl : String) {
+enum class OkApiServiceType(val serviceName: String, val endpoint: String) {
     OPENCACHING_PL("Opencaching.PL", "https://www.opencaching.pl/okapi/"),
     OPENCACHING_DE("Opencaching.DE", "https://www.opencaching.de/okapi/"),
     OPENCACHING_US("Opencaching.US", "https://www.opencaching.us/okapi/"),

@@ -1,6 +1,6 @@
-package com.arcao.opencaching4locus.data.network
+package com.arcao.opencaching4locus.data.okapi
 
-import com.arcao.opencaching4locus.data.network.converter.ArraySeparator
+import com.arcao.opencaching4locus.data.retrofit.converter.ArraySeparator
 import com.arcao.opencaching4locus.model.*
 import retrofit2.Call
 import retrofit2.http.GET

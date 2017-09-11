@@ -1,4 +1,4 @@
-package com.arcao.opencaching4locus.data.network.converter
+package com.arcao.opencaching4locus.data.retrofit.converter
 
 import retrofit2.Converter
 import retrofit2.Converter.Factory
