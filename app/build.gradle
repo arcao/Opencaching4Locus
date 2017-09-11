@@ -6,10 +6,10 @@ apply plugin: 'kotlin-android-extensions'
 
 dependencies {
     def supportVer = '26.0.2'
-    def locusApiVer = '0.2.10'
+    def locusApiVer = '0.2.11'
     def timberVer = '4.5.1'
     def scribeJavaVer = '4.2.0'
-    def okHttpVer = '3.8.1'
+    def okHttpVer = '3.9.0'
     def retrofitVer = '2.3.0'
     def moshiVer = '1.5.0'
 
@@ -24,6 +24,9 @@ dependencies {
     implementation "com.android.support:support-annotations:$supportVer"
     implementation "com.android.support:appcompat-v7:$supportVer"
     implementation "com.android.support:design:$supportVer"
+
+    // Databinding
+    kapt "com.android.databinding:compiler:$androidGradleVer"
 
     // Locus API
     implementation "com.asamm:locus-api-android:$locusApiVer"
