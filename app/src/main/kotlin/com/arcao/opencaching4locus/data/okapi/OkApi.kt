@@ -2,7 +2,7 @@ package com.arcao.opencaching4locus.data.okapi
 
 import com.arcao.opencaching4locus.data.retrofit.converter.ArraySeparator
 import com.arcao.opencaching4locus.model.*
-import retrofit2.Call
+import io.reactivex.Maybe
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -13,7 +13,7 @@ interface OkApi {
             @ArraySeparator @Query("fields") fields: Array<String> = Geocache.FORMAT_LIVEMAP,
             @Query("lpc") logsPerCache : Int = 5,
             @ArraySeparator @Query("log_fields") logFields : Array<String> = Log.FORMAT_LIVEMAP
-    ): Call<Map<String, Geocache>>
+    ): Maybe<Map<String, Geocache>>
 
     @GET("services/caches/geocache")
     fun geocache(
@@ -21,7 +21,7 @@ interface OkApi {
             @ArraySeparator @Query("fields") fields: Array<String> = Geocache.FORMAT_LIVEMAP,
             @Query("lpc") logsPerCache : Int = 5,
             @ArraySeparator @Query("log_fields") logFields : Array<String> = Log.FORMAT_LIVEMAP
-    ) : Call<Geocache>
+    ) : Maybe<Geocache>
 
     @GET("services/caches/search/nearest")
     fun nearest(
@@ -35,7 +35,7 @@ interface OkApi {
             @Query("found_status") foundStatus : String = "either",
             @Query("ignored_status") ignoredStatus : String = "either",
             @Query("exclude_my_own") excludeMyOwn : Boolean = false
-    ) : Call<GeocacheSearchResult>
+    ) : Maybe<GeocacheSearchResult>
 
     @GET("services/caches/search/bbox")
     fun bbox(
@@ -49,5 +49,5 @@ interface OkApi {
             @Query("found_status") foundStatus : String = "either",
             @Query("ignored_status") ignoredStatus : String = "either",
             @Query("exclude_my_own") excludeMyOwn : Boolean = false
-    ) : Call<GeocacheSearchResult>
+    ) : Maybe<GeocacheSearchResult>
 }
