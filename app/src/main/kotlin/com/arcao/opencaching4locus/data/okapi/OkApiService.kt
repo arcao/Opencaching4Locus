@@ -21,9 +21,9 @@ interface OkApiService {
             difficulty : FloatRange? = null,
             terrain : FloatRange? = null,
             size : Array<String>? = null,
-            foundStatus : String = "either",
-            ignoredStatus : String = "either",
-            excludeMyOwn : Boolean = false,
+            foundStatus : String? = null,
+            ignoredStatus : String? = null,
+            excludeMyOwn : Boolean? = null,
             logsPerCache : Int = 5) : Flowable<Geocache>
     fun liveMapGeocaches(
             bbox : BoundingBox,
@@ -32,9 +32,9 @@ interface OkApiService {
             difficulty : FloatRange? = null,
             terrain : FloatRange? = null,
             size : Array<String>? = null,
-            foundStatus : String = "either",
-            ignoredStatus : String = "either",
-            excludeMyOwn : Boolean = false,
+            foundStatus : String? = null,
+            ignoredStatus : String? = null,
+            excludeMyOwn : Boolean? = null,
             logsPerCache : Int) : Flowable<Geocache>
 }
 

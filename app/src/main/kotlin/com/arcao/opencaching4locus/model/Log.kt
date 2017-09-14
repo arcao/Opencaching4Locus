@@ -3,13 +3,13 @@ package com.arcao.opencaching4locus.model
 import java.util.*
 
 data class Log(
-    val uuid : String,
-    val cache_code : String,
-    val date: Date,
-    val user : User,
-    val type : String,
-    val comment : String,
-    val images : List<Image>
+    val uuid : String? = null,
+    val cache_code : String? = null,
+    val date: Date? = null,
+    val user : User? = null,
+    val type : String? = null,
+    val comment : String? = null,
+    val images : List<Image> = emptyList()
 ) {
     companion object {
         val FIELD_UUID = "uuid"

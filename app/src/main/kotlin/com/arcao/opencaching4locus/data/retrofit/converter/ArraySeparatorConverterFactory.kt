@@ -27,13 +27,17 @@ class ArraySeparatorConverterFactory : Factory() {
         return null
     }
 
-    private class ArraySeparatorConverter : Converter<Array<Any>,  String> {
+    private class ArraySeparatorConverter : Converter<Any,  String> {
         companion object {
             val INSTANCE = ArraySeparatorConverter()
         }
 
-        override fun convert(value: Array<Any>): String {
-            return value.joinToString("|")
+        override fun convert(value: Any): String {
+            return when(value) {
+                is Array<*> -> value.joinToString("|")
+                is Iterable<*> ->value.joinToString("|")
+                else -> value.toString()
+            }
         }
     }
 }

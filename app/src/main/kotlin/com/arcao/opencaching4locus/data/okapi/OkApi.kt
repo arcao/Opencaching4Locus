@@ -9,18 +9,18 @@ import retrofit2.http.Query
 interface OkApi {
     @GET("services/caches/geocaches")
     fun geocaches(
-            @ArraySeparator @Query("cacheCodes") cacheCodes: Array<String>,
-            @ArraySeparator @Query("fields") fields: Array<String> = Geocache.FORMAT_LIVEMAP,
+            @ArraySeparator @Query("cache_codes") cacheCodes: String,
+            @ArraySeparator @Query("fields") fields: String = Geocache.FORMAT_LIVEMAP.joinToString("|"),
             @Query("lpc") logsPerCache : Int = 5,
-            @ArraySeparator @Query("log_fields") logFields : Array<String> = Log.FORMAT_LIVEMAP
+            @ArraySeparator @Query("log_fields") logFields : String = Log.FORMAT_LIVEMAP.joinToString("|")
     ): Maybe<Map<String, Geocache>>
 
     @GET("services/caches/geocache")
     fun geocache(
-            @Query("cacheCode") cacheCode: String,
-            @ArraySeparator @Query("fields") fields: Array<String> = Geocache.FORMAT_LIVEMAP,
+            @Query("cache_code") cacheCode: String,
+            @ArraySeparator @Query("fields") fields: String = Geocache.FORMAT_LIVEMAP.joinToString("|"),
             @Query("lpc") logsPerCache : Int = 5,
-            @ArraySeparator @Query("log_fields") logFields : Array<String> = Log.FORMAT_LIVEMAP
+            @ArraySeparator @Query("log_fields") logFields : String = Log.FORMAT_LIVEMAP.joinToString("|")
     ) : Maybe<Geocache>
 
     @GET("services/caches/search/nearest")
@@ -31,11 +31,11 @@ interface OkApi {
             @Query("type") type : Array<String>? = null,
             @Query("difficulty") difficulty : FloatRange? = null,
             @Query("terrain") terrain : FloatRange? = null,
-            @ArraySeparator @Query("size2") size : Array<String>? = null,
-            @Query("found_status") foundStatus : String = "either",
-            @Query("ignored_status") ignoredStatus : String = "either",
-            @Query("exclude_my_own") excludeMyOwn : Boolean = false
-    ) : Maybe<GeocacheSearchResult>
+            @ArraySeparator @Query("size2") size : String? = null,
+            @Query("found_status") foundStatus : String? = null,
+            @Query("ignored_status") ignoredStatus : String? = null,
+            @Query("exclude_my_own") excludeMyOwn : Boolean? = null
+    ) : Maybe<GeocacheSearchResponse>
 
     @GET("services/caches/search/bbox")
     fun bbox(
@@ -45,9 +45,9 @@ interface OkApi {
             @Query("type") type : Array<String>? = null,
             @Query("difficulty") difficulty : FloatRange? = null,
             @Query("terrain") terrain : FloatRange? = null,
-            @ArraySeparator @Query("size2") size : Array<String>? = null,
-            @Query("found_status") foundStatus : String = "either",
-            @Query("ignored_status") ignoredStatus : String = "either",
-            @Query("exclude_my_own") excludeMyOwn : Boolean = false
-    ) : Maybe<GeocacheSearchResult>
+            @ArraySeparator @Query("size2") size : String? = null,
+            @Query("found_status") foundStatus : String? = null,
+            @Query("ignored_status") ignoredStatus : String? = null,
+            @Query("exclude_my_own") excludeMyOwn : Boolean? = null
+    ) : Maybe<GeocacheSearchResponse>
 }

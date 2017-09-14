@@ -1,46 +1,47 @@
 package com.arcao.opencaching4locus.model
 
+import com.arcao.opencaching4locus.data.moshi.annotation.LocationField
 import java.util.*
 
 data class Geocache(
         val code : String,
         val name : String,
-        val location : Location,
+        @LocationField val location : Location,
         val type : String,
         val status : String,
-        val needs_maintenance : Boolean?,
-        val url : String?,
-        val owner: User?,
-        val gc_code : String?,
-        val is_found : Boolean,
-        val is_not_found : Boolean?,
-        val is_watched : Boolean?,
-        val is_ignored : Boolean?,
-        val founds : Int?,
-        val notfounds : Int?,
-        val willattends : Int?,
-        val size2 : Int,
-        val difficulty : Float,
-        val terrain : Float,
-        val rating: Float?,
-        val recommendations : Int?,
-        val req_passwd: Boolean?,
-        val short_description: String?,
-        val description : String?,
-        val hint2 : String,
-        val images : List<Image>?,
-        val attr_acodes : List<String>?,
-        val attrnames : List<String>?,
-        val latest_logs : List<Log>,
-        val my_notes : String?,
-        val trackables : List<Trackable>?,
-        val alt_waypoints : List<Waypoint>?,
-        val country : String?,
-        val state : String?,
-        val last_found : Date?,
-        val last_modified : Date?,
-        val date_created : Date?,
-        val date_hidden : Date?
+        val needs_maintenance : Boolean = false,
+        val url : String? = null,
+        val owner: User? = null,
+        val gc_code : String? = null,
+        val is_found : Boolean = false,
+        val is_not_found : Boolean = false,
+        val is_watched : Boolean = false,
+        val is_ignored : Boolean = false,
+        val founds : Int = 0,
+        val notfounds : Int = 0,
+        val willattends : Int = 0,
+        val size2 : String? = null,
+        val difficulty : Float = 0F,
+        val terrain : Float = 0F,
+        val rating: Float? = null,
+        val recommendations : Int = 0,
+        val req_passwd: Boolean = false,
+        val short_description: String? = null,
+        val description : String? = null,
+        val hint2 : String? = null,
+        val images : List<Image> = emptyList(),
+        val attr_acodes : List<String> = emptyList(),
+        val attrnames : List<String> = emptyList(),
+        val latest_logs : List<Log> = emptyList(),
+        val my_notes : String? = null,
+        val trackables : List<Trackable> = emptyList(),
+        val alt_waypoints : List<Waypoint> = emptyList(),
+        val country : String? = null,
+        val state : String? = null,
+        val last_found : Date? = null,
+        val last_modified : Date? = null,
+        val date_created : Date? = null,
+        val date_hidden : Date? = null
 ) {
     companion object {
         val FIELD_CODE = "code"
@@ -74,7 +75,7 @@ data class Geocache(
         val FIELD_LATEST_LOGS = "latest_logs"
         val FIELD_MY_NOTES = "my_notes"
         val FIELD_TRACKABLES = "trackables"
-        val FIELD_ALT_WAYPOINTS = "alt_waypoints"
+        val FIELD_ALT_WPTS = "alt_wpts"
         val FIELD_COUNTRY = "country"
         val FIELD_STATE = "state"
         val FIELD_LAST_FOUND = "last_found"
@@ -92,10 +93,10 @@ data class Geocache(
                 FIELD_URL,
                 FIELD_OWNER,
                 FIELD_GC_CODE,
-                FIELD_IS_FOUND,
-                FIELD_IS_NOT_FOUND,
-                FIELD_IS_WATCHED,
-                FIELD_IS_IGNORED,
+                //FIELD_IS_FOUND,
+                //FIELD_IS_NOT_FOUND,
+                //FIELD_IS_WATCHED,
+                //FIELD_IS_IGNORED,
                 FIELD_FOUNDS,
                 FIELD_NOTFOUNDS,
                 FIELD_WILLATTENDS,
@@ -112,9 +113,9 @@ data class Geocache(
                 FIELD_ATTR_ACODES,
                 FIELD_ATTRNAMES,
                 FIELD_LATEST_LOGS,
-                FIELD_MY_NOTES,
+                //FIELD_MY_NOTES,
                 FIELD_TRACKABLES,
-                FIELD_ALT_WAYPOINTS,
+                FIELD_ALT_WPTS,
                 FIELD_COUNTRY,
                 FIELD_STATE,
                 FIELD_LAST_FOUND,

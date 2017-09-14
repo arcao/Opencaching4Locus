@@ -18,7 +18,7 @@ class OkApiServiceImpl(private val serviceType: OkApiServiceType, private val ac
     private val apiInstance: OkApi by lazy {
         retrofitBuilder
                 .client(okHttpClient.newBuilder()
-                        .addInterceptor(AuthenticationInterceptor(account))
+                        .addInterceptor(AuthenticationInterceptor(account, serviceType))
                         .build())
                 .baseUrl(serviceType.endpoint)
                 .build()
@@ -32,20 +32,20 @@ class OkApiServiceImpl(private val serviceType: OkApiServiceType, private val ac
     override fun geocache(code: String, logsPerCache: Int): Maybe<Geocache> {
         return apiInstance.geocache(
                 cacheCode = code,
-                fields = Geocache.FORMAT_FULL,
-                logFields = Log.FORMAT_FULL,
+                fields = Geocache.FORMAT_FULL.joinToString("|"),
+                logFields = Log.FORMAT_FULL.joinToString("|"),
                 logsPerCache = logsPerCache
         ).subscribeOn(Schedulers.io())
     }
 
-    override fun nearestGeocaches(location: Location, limit: Int, type: Array<String>?, difficulty: FloatRange?, terrain: FloatRange?, size: Array<String>?, foundStatus: String, ignoredStatus: String, excludeMyOwn: Boolean, logsPerCache: Int): Flowable<Geocache> {
+    override fun nearestGeocaches(location: Location, limit: Int, type: Array<String>?, difficulty: FloatRange?, terrain: FloatRange?, size: Array<String>?, foundStatus: String?, ignoredStatus: String?, excludeMyOwn: Boolean?, logsPerCache: Int): Flowable<Geocache> {
         return apiInstance.nearest(
                 location = location,
                 limit = limit,
                 type = type,
                 difficulty = difficulty,
                 terrain = terrain,
-                size = size,
+                size = size?.joinToString("|"),
                 foundStatus = foundStatus,
                 ignoredStatus = ignoredStatus,
                 excludeMyOwn = excludeMyOwn
@@ -57,24 +57,24 @@ class OkApiServiceImpl(private val serviceType: OkApiServiceType, private val ac
                             .flatMap { codes ->
                                 Flowable.fromIterable(
                                         apiInstance.geocaches(
-                                                codes.toTypedArray(),
-                                                fields = Geocache.FORMAT_FULL,
+                                                codes.joinToString("|"),
+                                                fields = Geocache.FORMAT_FULL.joinToString("|"),
                                                 logsPerCache = logsPerCache,
-                                                logFields = Log.FORMAT_FULL
+                                                logFields = Log.FORMAT_FULL.joinToString("|")
                                         ).blockingGet().values
                                 )
                             }
                 }
     }
 
-    override fun liveMapGeocaches(bbox: BoundingBox, limit: Int, type: Array<String>?, difficulty: FloatRange?, terrain: FloatRange?, size: Array<String>?, foundStatus: String, ignoredStatus: String, excludeMyOwn: Boolean, logsPerCache: Int): Flowable<Geocache> {
+    override fun liveMapGeocaches(bbox: BoundingBox, limit: Int, type: Array<String>?, difficulty: FloatRange?, terrain: FloatRange?, size: Array<String>?, foundStatus: String?, ignoredStatus: String?, excludeMyOwn: Boolean?, logsPerCache: Int): Flowable<Geocache> {
         return apiInstance.bbox(
                 bbox = bbox,
                 limit = limit,
                 type = type,
                 difficulty = difficulty,
                 terrain = terrain,
-                size = size,
+                size = size?.joinToString("|"),
                 foundStatus = foundStatus,
                 ignoredStatus = ignoredStatus,
                 excludeMyOwn = excludeMyOwn
@@ -86,10 +86,10 @@ class OkApiServiceImpl(private val serviceType: OkApiServiceType, private val ac
                             .flatMap { codes ->
                                 Flowable.fromIterable(
                                         apiInstance.geocaches(
-                                                codes.toTypedArray(),
-                                                fields = Geocache.FORMAT_LIVEMAP,
+                                                codes.joinToString("|"),
+                                                fields = Geocache.FORMAT_LIVEMAP.joinToString("|"),
                                                 logsPerCache = logsPerCache,
-                                                logFields = Log.FORMAT_LIVEMAP
+                                                logFields = Log.FORMAT_LIVEMAP.joinToString("|")
                                         ).blockingGet().values
                                 )
                             }
