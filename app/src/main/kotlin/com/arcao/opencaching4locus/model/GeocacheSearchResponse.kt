@@ -3,8 +3,8 @@ package com.arcao.opencaching4locus.model
 import java.util.*
 
 data class GeocacheSearchResponse(
-        val results : Array<String>,
-        val more : Boolean = false
+        val results: Array<String>,
+        val more: Boolean = false
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

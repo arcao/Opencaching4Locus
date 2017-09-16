@@ -1,8 +1,8 @@
 package com.arcao.opencaching4locus.model
 
-data class FloatRange (
-        val min : Float,
-        val max : Float
+data class FloatRange(
+        val min: Float,
+        val max: Float
 ) {
     init {
         if (min < 0)

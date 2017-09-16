@@ -1,10 +1,10 @@
 package com.arcao.opencaching4locus.model
 
 data class BoundingBox(
-        val topLeft : Location,
-        val bottomRight : Location
+        val topLeft: Location,
+        val bottomRight: Location
 ) {
-    constructor(minLatitude : Double, minLongitude : Double, maxLatitude : Double, maxLongitude : Double)
+    constructor(minLatitude: Double, minLongitude: Double, maxLatitude: Double, maxLongitude: Double)
             : this(Location(maxLatitude, minLongitude), Location(minLatitude, maxLongitude))
 
     override fun toString(): String {

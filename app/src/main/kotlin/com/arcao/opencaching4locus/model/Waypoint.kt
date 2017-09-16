@@ -1,11 +1,11 @@
 package com.arcao.opencaching4locus.model
 
-import com.arcao.opencaching4locus.data.moshi.annotation.LocationField
+import com.arcao.opencaching4locus.data.moshi.annotation.StringJson
 
 data class Waypoint(
-        val name : String,
-        @LocationField val location : Location,
-        val type : String,
-        val type_name : String,
-        val description : String? = null
+        val name: String,
+        @StringJson val location: Location,
+        val type: WaypointType,
+        val type_name: String,
+        val description: String? = null
 )

@@ -3,6 +3,7 @@ package com.arcao.opencaching4locus.data
 import com.arcao.opencaching4locus.data.account.AccountModule
 import com.arcao.opencaching4locus.data.moshi.adapter.DateAdapter
 import com.arcao.opencaching4locus.data.moshi.adapter.LocationAdapter
+import com.arcao.opencaching4locus.data.moshi.adapter.SafeEnumsAdapterFactory
 import com.arcao.opencaching4locus.data.okapi.OkApiModule
 import com.arcao.opencaching4locus.data.retrofit.adapter.RxJava2ErrorHandlingCallAdapterFactory
 import com.arcao.opencaching4locus.data.retrofit.converter.ArraySeparatorConverterFactory
@@ -20,6 +21,7 @@ class DataModule {
     @Provides fun provideMoshi() : Moshi {
         return Moshi.Builder().apply {
             add(KotlinJsonAdapterFactory())
+            add(SafeEnumsAdapterFactory())
             add(LocationAdapter())
             add(DateAdapter())
         }.build()
