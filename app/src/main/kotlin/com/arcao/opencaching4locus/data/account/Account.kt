@@ -6,25 +6,31 @@ import com.arcao.opencaching4locus.model.response.User
 import com.github.scribejava.core.model.OAuth1AccessToken
 
 class Account(private val context : Context, val accountType: AccountType) {
-    val preferences : SharedPreferences = context.getSharedPreferences("ACCOUNT_${accountType.name}", Context.MODE_PRIVATE)
-
-    fun authenticated() : Boolean {
-        return false
+    companion object {
+        private const val PREF_TOKEN = "TOKEN"
+        private const val PREF_SECRET = "SECRET"
+        private const val PREF_USERNAME = "USERNAME"
     }
 
-    fun accessToken(): String? {
-        return null
-    }
+    private val preferences : SharedPreferences = context.getSharedPreferences("ACCOUNT_${accountType.name}", Context.MODE_PRIVATE)
 
-    fun accessSecret(): String? {
-        return null
-    }
+    fun authenticated() : Boolean = preferences.contains(PREF_TOKEN)
+    fun accessToken(): String? = preferences.getString(PREF_TOKEN, null)
+    fun accessSecret(): String? = preferences.getString(PREF_SECRET, null)
 
     fun authorize(token: OAuth1AccessToken, user: User) {
         preferences.edit().apply {
-            putString("TOKEN", token.token)
-            putString("SECRET", token.tokenSecret)
-            putString("USERNAME", user.username)
+            putString(PREF_TOKEN, token.token)
+            putString(PREF_SECRET, token.tokenSecret)
+            putString(PREF_USERNAME, user.username)
+        }.apply()
+    }
+
+    fun remove() {
+        preferences.edit().apply {
+            remove(PREF_TOKEN)
+            remove(PREF_SECRET)
+            remove(PREF_USERNAME)
         }.apply()
     }
 }
