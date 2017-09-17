@@ -6,6 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 dependencies {
     def supportVer = '26.1.0'
+    def constraintLayoutVer = '1.0.2'
     def locusApiVer = '0.2.11'
     def timberVer = '4.5.1'
     def scribeJavaVer = '4.2.0'
@@ -31,6 +32,7 @@ dependencies {
     implementation "com.android.support:support-annotations:$supportVer"
     implementation "com.android.support:appcompat-v7:$supportVer"
     implementation "com.android.support:design:$supportVer"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVer"
 
     // Databinding
     kapt "com.android.databinding:compiler:$androidGradleVer"
@@ -65,7 +67,7 @@ dependencies {
     kapt "android.arch.lifecycle:compiler:$lifecycleVer"
 
     // Dagger 2
-    compileOnly "com.google.dagger:dagger-android:$daggerVer"
+    implementation "com.google.dagger:dagger-android:$daggerVer"
     implementation "com.google.dagger:dagger-android-support:$daggerVer"
     kapt "com.google.dagger:dagger-compiler:$daggerVer"
     kapt "com.google.dagger:dagger-android-processor:$daggerVer"
