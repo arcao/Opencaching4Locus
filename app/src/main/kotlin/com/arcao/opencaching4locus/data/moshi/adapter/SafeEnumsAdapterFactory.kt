@@ -1,8 +1,9 @@
 package com.arcao.opencaching4locus.data.moshi.adapter
 
-import com.arcao.opencaching4locus.model.GeocacheSize
-import com.arcao.opencaching4locus.model.GeocacheStatus
-import com.arcao.opencaching4locus.model.WaypointType
+import com.arcao.opencaching4locus.model.enums.GeocacheSize
+import com.arcao.opencaching4locus.model.enums.GeocacheStatus
+import com.arcao.opencaching4locus.model.enums.LogType
+import com.arcao.opencaching4locus.model.enums.WaypointType
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonWriter
@@ -15,6 +16,7 @@ class SafeEnumsAdapterFactory : JsonAdapter.Factory {
             GeocacheSize::class.java -> GeocacheSizeAdapter.INSTANCE
             GeocacheStatus::class.java -> GeocacheStatusAdapter.INSTANCE
             WaypointType::class.java -> WaypointTypeAdapter.INSTANCE
+            LogType::class.java -> LogTypeAdapter.INSTANCE
             else -> null
         }
     }
@@ -41,6 +43,14 @@ class SafeEnumsAdapterFactory : JsonAdapter.Factory {
         }
 
         override fun fromString(value: String?): GeocacheStatus = GeocacheStatus.from(value)
+    }
+
+    class LogTypeAdapter : SafeEnumAdapter<LogType>() {
+        companion object {
+            val INSTANCE = LogTypeAdapter()
+        }
+
+        override fun fromString(value: String?): LogType = LogType.from(value)
     }
 
     class WaypointTypeAdapter : SafeEnumAdapter<WaypointType>() {

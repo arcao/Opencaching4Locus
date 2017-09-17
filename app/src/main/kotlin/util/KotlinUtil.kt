@@ -1,10 +1,7 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package util
 
+inline fun CharSequence?.orDefault(default : CharSequence = "") : CharSequence = this ?: default
 
-fun String?.orDefault(default : String) : String {
-    return this ?: default
-}
-
-fun CharSequence?.orDefault(default : CharSequence = "") : CharSequence {
-    return this ?: default
-}
+inline fun CharSequence?.isNotNullOrEmpty() : Boolean = this !== null && this.isNotEmpty()

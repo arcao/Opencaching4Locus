@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Opencaching4Locus</string>
     <string name="button_ok">OK</string>
+    <string name="activity_title_sign_in">Sign in</string>
 </resources>

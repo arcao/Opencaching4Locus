@@ -1,4 +1,4 @@
-package com.arcao.opencaching4locus.model
+package com.arcao.opencaching4locus.model.request
 
 data class FloatRange(
         val min: Float,

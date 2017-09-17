@@ -5,7 +5,7 @@ import com.arcao.opencaching4locus.data.account.Account
 import com.arcao.opencaching4locus.model.Location
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
-import org.amshove.kluent.shouldNotEqual
+import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.Test
 
@@ -23,7 +23,7 @@ class OkApiServicePLTest {
         val retrofitBuilder = dataModule.provideRetrofitBuilder(moshi)
 
         val account = mock<Account> {
-            on { isAuthenticated() } doReturn (false)
+            on { authenticated() } doReturn (false)
         }
 
         service = okApiModule.provideOkApiServicesPL(account, okHttpClient, retrofitBuilder)
@@ -31,9 +31,9 @@ class OkApiServicePLTest {
 
     @Test
     fun shouldFindNearestGeocaches() {
-        val geocachesFlowable = service.nearestGeocaches(Location(50.0, 14.0))
+        val geocachesFlowable = service.nearestGeocaches(Location(50.0, 14.0), 100)
 
         val geocaches = geocachesFlowable.toList().blockingGet()
-        geocaches.size shouldNotEqual 0
+        geocaches.size shouldEqual 100
     }
 }

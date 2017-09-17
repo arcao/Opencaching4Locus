@@ -13,16 +13,16 @@ object PermissionUtil {
     val PERMISSION_LOCATION_GPS = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
     val PERMISSION_LOCATION_WIFI = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION)
     val PERMISSION_EXTERNAL_STORAGE = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+}
 
-    fun verifyPermissions(grantResults: IntArray): Boolean {
-        return grantResults.none {
-            it != PackageManager.PERMISSION_GRANTED
-        }
+fun Context.verifyPermissions(grantResults: IntArray): Boolean {
+    return grantResults.none {
+        it != PackageManager.PERMISSION_GRANTED
     }
+}
 
-    fun hasPermission(context: Context, vararg permissions: String): Boolean {
-        return permissions.none {
-            ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_DENIED
-        }
+fun Context.hasPermission(vararg permissions: String): Boolean {
+    return permissions.none {
+        ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_DENIED
     }
 }

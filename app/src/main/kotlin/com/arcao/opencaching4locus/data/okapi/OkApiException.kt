@@ -1,5 +1,5 @@
 package com.arcao.opencaching4locus.data.okapi
 
-import com.arcao.opencaching4locus.model.OkApiError
+import com.arcao.opencaching4locus.model.response.OkApiError
 
-class OkApiException(val url: String, val error : OkApiError) : Exception("${error.reason_stack.joinToString(", ")}: ${error.developer_message}")
+class OkApiException(val url: String, val error : OkApiError) : Exception("${error.reasonStack.joinToString(", ")}: ${error.developerMessage}")

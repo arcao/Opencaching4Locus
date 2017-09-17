@@ -1,7 +1,7 @@
 package com.arcao.opencaching4locus.data.retrofit.adapter
 
 import com.arcao.opencaching4locus.data.okapi.OkApiException
-import com.arcao.opencaching4locus.model.OkApiErrorResponse
+import com.arcao.opencaching4locus.model.response.OkApiErrorResponse
 import io.reactivex.*
 import retrofit2.Call
 import retrofit2.CallAdapter

@@ -1,4 +1,4 @@
-package com.arcao.opencaching4locus.model
+package com.arcao.opencaching4locus.model.enums
 
 enum class WaypointType(val waypointName: String) {
     PARKING("parking"),

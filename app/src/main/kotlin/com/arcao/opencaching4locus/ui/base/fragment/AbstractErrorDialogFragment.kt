@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.app.AlertDialog
 import com.arcao.opencaching4locus.R
-import com.arcao.opencaching4locus.ui.base.util.ResourcesUtil
+import com.arcao.opencaching4locus.ui.base.util.getText
 
-class AbstractErrorDialogFragment : AbstractDialogFragment() {
+abstract class AbstractErrorDialogFragment : AbstractDialogFragment() {
     companion object {
         private val PARAM_TITLE = "TITLE"
         private val PARAM_ERROR_MESSAGE = "ERROR_MESSAGE"
@@ -15,11 +15,11 @@ class AbstractErrorDialogFragment : AbstractDialogFragment() {
     }
 
     protected fun prepareDialog(@StringRes resTitle: Int, @StringRes resErrorMessage: Int, additionalMessage: String?) {
-        val args = Bundle()
-        args.putInt(PARAM_TITLE, resTitle)
-        args.putInt(PARAM_ERROR_MESSAGE, resErrorMessage)
-        args.putString(PARAM_ADDITIONAL_MESSAGE, additionalMessage)
-        arguments = args
+        arguments = Bundle().apply {
+            putInt(PARAM_TITLE, resTitle)
+            putInt(PARAM_ERROR_MESSAGE, resErrorMessage)
+            putString(PARAM_ADDITIONAL_MESSAGE, additionalMessage)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,21 +27,19 @@ class AbstractErrorDialogFragment : AbstractDialogFragment() {
         isCancelable = false
     }
 
-    protected fun onPositiveButtonClick() {
+    protected open fun onPositiveButtonClick() {
         // do nothing
     }
 
     protected fun onDialogBuild(builder: AlertDialog.Builder) {
-        val args = arguments
-
-        builder.setMessage(ResourcesUtil.getText(activity, args.getInt(PARAM_ERROR_MESSAGE),
-                args.getString(PARAM_ADDITIONAL_MESSAGE).orEmpty()))
+        builder.setMessage(activity.getText(arguments.getInt(PARAM_ERROR_MESSAGE),
+                arguments.getString(PARAM_ADDITIONAL_MESSAGE).orEmpty()))
                 .setPositiveButton(R.string.button_ok, {
                     _, _ -> onPositiveButtonClick()
                 }
         )
 
-        val title = args.getInt(PARAM_TITLE)
+        val title = arguments.getInt(PARAM_TITLE)
         if (title != 0) {
             builder.setTitle(title)
         }

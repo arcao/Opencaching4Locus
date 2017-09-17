@@ -3,12 +3,19 @@ package com.arcao.opencaching4locus.data.okapi
 import com.arcao.opencaching4locus.data.account.Account
 import com.arcao.opencaching4locus.data.account.AccountType
 import com.arcao.opencaching4locus.data.retrofit.interceptor.AuthenticationInterceptor
-import com.arcao.opencaching4locus.model.*
+import com.arcao.opencaching4locus.model.Location
+import com.arcao.opencaching4locus.model.enums.GeocacheSize
+import com.arcao.opencaching4locus.model.request.BoundingBox
+import com.arcao.opencaching4locus.model.request.FloatRange
+import com.arcao.opencaching4locus.model.response.Geocache
+import com.arcao.opencaching4locus.model.response.Log
+import com.arcao.opencaching4locus.model.response.User
 import io.reactivex.Flowable
-import io.reactivex.Maybe
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import java.util.*
 
 class OkApiServiceImpl(private val serviceType: OkApiServiceType, private val account: Account, private val okHttpClient: OkHttpClient, private val retrofitBuilder: Retrofit.Builder) : OkApiService {
     companion object {
@@ -27,22 +34,22 @@ class OkApiServiceImpl(private val serviceType: OkApiServiceType, private val ac
 
     override fun accountType(): AccountType = account.accountType
     override fun serviceType(): OkApiServiceType = serviceType
-    override fun authenticated(): Boolean = account.isAuthenticated()
+    override fun authenticated(): Boolean = account.authenticated()
 
-    override fun geocache(code: String, logsPerCache: Int): Maybe<Geocache> {
+    override fun geocache(code: String, logsPerCache: Int): Single<Geocache> {
         return apiInstance.geocache(
                 cacheCode = code,
                 fields = Geocache.FORMAT_FULL.joinToString("|"),
                 logFields = Log.FORMAT_FULL.joinToString("|"),
                 logsPerCache = logsPerCache
-        ).subscribeOn(Schedulers.io())
+        ).observeOn(Schedulers.io())
     }
 
-    override fun nearestGeocaches(location: Location, limit: Int, type: Array<String>?, difficulty: FloatRange?, terrain: FloatRange?, size: Array<String>?, foundStatus: String?, ignoredStatus: String?, excludeMyOwn: Boolean?, logsPerCache: Int): Flowable<Geocache> {
+    override fun nearestGeocaches(location: Location, limit: Int, type: Array<String>?, difficulty: FloatRange?, terrain: FloatRange?, size: EnumSet<GeocacheSize>?, foundStatus: String?, ignoredStatus: String?, excludeMyOwn: Boolean?, logsPerCache: Int): Flowable<Geocache> {
         return apiInstance.nearest(
                 location = location,
                 limit = limit,
-                type = type,
+                type = type?.joinToString("|"),
                 difficulty = difficulty,
                 terrain = terrain,
                 size = size?.joinToString("|"),
@@ -52,7 +59,7 @@ class OkApiServiceImpl(private val serviceType: OkApiServiceType, private val ac
         ).subscribeOn(Schedulers.io())
                 .toFlowable()
                 .flatMap { (results) ->
-                    Flowable.fromArray(*results)
+                    Flowable.fromIterable(results)
                             .buffer(GEOCACHES_PER_REQUEST)
                             .flatMap { codes ->
                                 Flowable.fromIterable(
@@ -67,11 +74,11 @@ class OkApiServiceImpl(private val serviceType: OkApiServiceType, private val ac
                 }
     }
 
-    override fun liveMapGeocaches(bbox: BoundingBox, limit: Int, type: Array<String>?, difficulty: FloatRange?, terrain: FloatRange?, size: Array<String>?, foundStatus: String?, ignoredStatus: String?, excludeMyOwn: Boolean?, logsPerCache: Int): Flowable<Geocache> {
+    override fun liveMapGeocaches(bbox: BoundingBox, limit: Int, type: Array<String>?, difficulty: FloatRange?, terrain: FloatRange?, size: EnumSet<GeocacheSize>?, foundStatus: String?, ignoredStatus: String?, excludeMyOwn: Boolean?, logsPerCache: Int): Flowable<Geocache> {
         return apiInstance.bbox(
                 bbox = bbox,
                 limit = limit,
-                type = type,
+                type = type?.joinToString("|"),
                 difficulty = difficulty,
                 terrain = terrain,
                 size = size?.joinToString("|"),
@@ -81,7 +88,7 @@ class OkApiServiceImpl(private val serviceType: OkApiServiceType, private val ac
         ).subscribeOn(Schedulers.io())
                 .toFlowable()
                 .flatMap { (results) ->
-                    Flowable.fromArray(*results)
+                    Flowable.fromIterable(results)
                             .buffer(GEOCACHES_PER_REQUEST)
                             .flatMap { codes ->
                                 Flowable.fromIterable(
@@ -94,6 +101,13 @@ class OkApiServiceImpl(private val serviceType: OkApiServiceType, private val ac
                                 )
                             }
                 }
+    }
+
+    override fun user(uuid: String?): Single<User> {
+        return apiInstance.user(
+                userUuid = uuid,
+                fields = (if (uuid.isNullOrEmpty()) User.FORMAT_UNSIGNED else User.FORMAT_SIGNED).joinToString("|")
+        ).subscribeOn(Schedulers.io())
     }
 
 }

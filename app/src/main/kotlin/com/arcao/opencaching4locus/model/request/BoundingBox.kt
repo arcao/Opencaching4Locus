@@ -1,4 +1,6 @@
-package com.arcao.opencaching4locus.model
+package com.arcao.opencaching4locus.model.request
+
+import com.arcao.opencaching4locus.model.Location
 
 data class BoundingBox(
         val topLeft: Location,
