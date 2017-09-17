@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 dependencies {
     def supportVer = '26.1.0'
-    def constraintLayoutVer = '1.0.2'
+    def constraintLayoutVer = '1.1.0-beta1'
     def locusApiVer = '0.2.11'
     def timberVer = '4.5.1'
     def scribeJavaVer = '4.2.0'
