@@ -20,11 +20,6 @@ fun Date.toIso8901(): String {
     return formatted.substring(0, 22) + ":" + formatted.substring(22)
 }
 
-/** Get current date and time formatted as ISO 8601 string.  */
-fun String.iso8061Now(): String {
-    return Date().toIso8901()
-}
-
 /** Transform ISO 8601 string to Date.  */
 @Throws(ParseException::class)
 fun String.fromIso8601(): Date {
