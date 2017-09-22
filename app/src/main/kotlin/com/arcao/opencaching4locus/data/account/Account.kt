@@ -4,12 +4,15 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.arcao.opencaching4locus.model.response.User
 import com.github.scribejava.core.model.OAuth1AccessToken
+import com.github.scribejava.core.model.OAuth1RequestToken
 
 class Account(private val context : Context, val accountType: AccountType) {
     companion object {
         private const val PREF_TOKEN = "TOKEN"
         private const val PREF_SECRET = "SECRET"
         private const val PREF_USERNAME = "USERNAME"
+        private const val PREF_REQUEST_TOKEN = "REQUEST_TOKEN"
+        private const val PREF_REQUEST_SECRET = "REQUEST_SECRET"
     }
 
     private val preferences : SharedPreferences = context.getSharedPreferences("ACCOUNT_${accountType.name}", Context.MODE_PRIVATE)
@@ -40,4 +43,22 @@ class Account(private val context : Context, val accountType: AccountType) {
             remove(PREF_USERNAME)
         }.apply()
     }
+
+    var requestToken: OAuth1RequestToken
+        get() {
+            val token = OAuth1RequestToken(preferences.getString(PREF_REQUEST_TOKEN, null), preferences.getString(PREF_REQUEST_SECRET, null))
+            preferences.edit().apply {
+                remove(PREF_REQUEST_TOKEN)
+                remove(PREF_REQUEST_SECRET)
+            }.apply()
+            return token
+        }
+        set(value) {
+            preferences.edit().apply {
+                putString(PREF_REQUEST_TOKEN, value.token)
+                putString(PREF_REQUEST_SECRET, value.tokenSecret)
+            }.apply()
+        }
+
+    val hasRequestToken: Boolean get() = preferences.contains(PREF_REQUEST_TOKEN) && preferences.contains(PREF_REQUEST_SECRET)
 }
