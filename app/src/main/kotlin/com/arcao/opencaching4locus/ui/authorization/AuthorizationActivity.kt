@@ -1,5 +1,6 @@
 package com.arcao.opencaching4locus.ui.authorization
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.databinding.DataBindingUtil
 import android.net.Uri
@@ -8,6 +9,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.arcao.opencaching4locus.R
+import com.arcao.opencaching4locus.data.account.AccountManager
 import com.arcao.opencaching4locus.data.oauth.provider.OpencachingOAuthProvider
 import com.arcao.opencaching4locus.data.okapi.OkApiService
 import com.arcao.opencaching4locus.data.okapi.OkApiServiceType
@@ -23,6 +25,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
+import timber.log.Timber
 import javax.inject.Inject
 
 class AuthorizationActivity : BaseActivity() {
@@ -34,14 +37,20 @@ class AuthorizationActivity : BaseActivity() {
     @Inject
     lateinit var okhttpClient : OkHttpClient
 
+    @Inject
+    lateinit var accountManager : AccountManager
+
     private lateinit var oauthService: OAuth10aService
     private lateinit var requestToken: OAuth1RequestToken
     private lateinit var accessToken: OAuth1AccessToken
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val binding = DataBindingUtil.setContentView<ActivityAuthorizationBinding>(this, R.layout.activity_authorization)
+        binding.webView.settings.javaScriptEnabled = true
+
         binding.webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
                 if (request.url.toString().startsWith(AppConstants.OAUTH_CALLBACK_URL)) {
@@ -63,17 +72,19 @@ class AuthorizationActivity : BaseActivity() {
             requestToken = oauthService.requestToken
             oauthService.getAuthorizationUrl(requestToken)
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe { url: String ->
+            Timber.d("Opening: $url")
             webView.loadUrl(url)
         }
     }
 
     private fun retrieveAccessToken(url: Uri) {
         Single.fromCallable {
+            val okService = services[OkApiServiceType.OPENCACHING_PL]!!
+
             accessToken = oauthService.getAccessToken(requestToken, url.getQueryParameter(OAUTH_VERIFIER))
-            val okService = services[OkApiServiceType.OPENCACHING_PL]
-            okService?.user()?.blockingGet().toString()
+            accountManager.getAccount(okService.accountType()).authorize(accessToken)
 
-
+            okService.user().blockingGet().toString()
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe { user: String? ->
             AlertDialog.Builder(this).apply {
                 setMessage(user ?: "")
