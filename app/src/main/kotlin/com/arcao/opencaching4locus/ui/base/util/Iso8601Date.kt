@@ -23,7 +23,12 @@ fun Date.toIso8901(): String {
 /** Transform ISO 8601 string to Date.  */
 @Throws(ParseException::class)
 fun String.fromIso8601(): Date {
-    var s = this.replace("Z", "+00:00", true)
+    var s = this
+    if (s.length == 10) {
+        s = "${s}T00:00:00+00:00"
+    }
+
+    s = s.replace("Z", "+00:00", true)
     try {
         s = s.substring(0, 22) + s.substring(23)  // to get rid of the ":"
     } catch (e: IndexOutOfBoundsException) {
