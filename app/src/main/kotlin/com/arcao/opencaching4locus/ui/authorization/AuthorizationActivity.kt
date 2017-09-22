@@ -2,6 +2,8 @@ package com.arcao.opencaching4locus.ui.authorization
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Bundle
@@ -10,6 +12,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.arcao.opencaching4locus.R
 import com.arcao.opencaching4locus.data.account.AccountManager
+import com.arcao.opencaching4locus.data.account.AccountType
 import com.arcao.opencaching4locus.data.oauth.provider.OpencachingOAuthProvider
 import com.arcao.opencaching4locus.data.okapi.OkApiService
 import com.arcao.opencaching4locus.data.okapi.OkApiServiceType
@@ -103,5 +106,12 @@ class AuthorizationActivity : BaseActivity() {
 
         // For staging server has to be used staging OAuth service
         return serviceBuilder.build(OpencachingOAuthProvider(serviceType))
+    }
+
+    companion object {
+        const val EXTRA_ACCOUNT_TYPE = "ACCOUNT_TYPE"
+        fun createIntent(context: Context, accountType: AccountType) : Intent = Intent(context, AuthorizationActivity::class.java).apply {
+            putExtra(EXTRA_ACCOUNT_TYPE, accountType)
+        }
     }
 }

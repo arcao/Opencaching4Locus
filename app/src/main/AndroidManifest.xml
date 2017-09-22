@@ -53,7 +53,7 @@
             android:name=".ui.dashboard.DashboardActivity"
             android:exported="true"
             >
-            <intent-filter android:label="@string/app_name">
+            <intent-filter android:label="@string/activity_title_dashboard">
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -66,6 +66,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".ui.settings.SettingsActivity" android:label="@string/activity_title_settings"/>
     </application>
 
 </manifest>
