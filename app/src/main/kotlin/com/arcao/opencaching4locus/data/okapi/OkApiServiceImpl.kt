@@ -25,7 +25,9 @@ class OkApiServiceImpl(private val serviceType: OkApiServiceType, private val ac
     private val apiInstance: OkApi by lazy {
         retrofitBuilder
                 .client(okHttpClient.newBuilder()
-                        .addInterceptor(AuthenticationInterceptor(account, serviceType))
+                        .apply {
+                            interceptors().add(0, AuthenticationInterceptor(account, serviceType))
+                        }
                         .build())
                 .baseUrl(serviceType.endpoint)
                 .build()
