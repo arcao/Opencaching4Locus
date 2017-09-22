@@ -1,5 +1,8 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package com.arcao.opencaching4locus.ui.base.util
 
+import android.app.Fragment
 import android.content.Context
 import android.content.res.Resources
 import android.support.annotation.PluralsRes
@@ -13,9 +16,18 @@ import org.oshkimaadziig.george.androidutils.SpanFormatter
  * @param args arguments for String.format(...)
  * @return formatted SpannedString
  */
-fun Context.getText(@StringRes id: Int, vararg args: Any): CharSequence {
-    return SpanFormatter.format(resources.configuration.locale, getText(id), *args)
-}
+inline fun Context.getText(@StringRes id: Int, vararg args: Any): CharSequence =
+        SpanFormatter.format(resources.configuration.locale, getText(id), *args)
+
+/**
+ * Returns formatted text from string resources
+ *
+ * @param id string resource id
+ * @param args arguments for String.format(...)
+ * @return formatted SpannedString
+ */
+inline fun Fragment.getText(@StringRes id: Int, vararg args: Any): CharSequence =
+        SpanFormatter.format(resources.configuration.locale, getText(id), *args)
 
 /**
  * Formats the string necessary for grammatically correct pluralization
@@ -41,8 +53,5 @@ fun Context.getText(@StringRes id: Int, vararg args: Any): CharSequence {
  *         possibly styled text information.
  */
 @Throws(Resources.NotFoundException::class)
-fun Context.getQuantityText(@PluralsRes id: Int, quantity: Int, vararg formatArgs: Any): CharSequence {
-    val raw = resources.getQuantityText(id, quantity)
-
-    return SpanFormatter.format(resources.configuration.locale, raw, *formatArgs)
-}
+inline fun Context.getQuantityText(@PluralsRes id: Int, quantity: Int, vararg formatArgs: Any): CharSequence =
+        SpanFormatter.format(resources.configuration.locale, resources.getQuantityText(id, quantity), *formatArgs)
