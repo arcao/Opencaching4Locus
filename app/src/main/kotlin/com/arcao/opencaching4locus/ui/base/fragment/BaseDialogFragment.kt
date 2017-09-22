@@ -1,10 +1,23 @@
 package com.arcao.opencaching4locus.ui.base.fragment
 
-import android.app.DialogFragment
-import android.app.FragmentManager
-import android.app.FragmentTransaction
+import android.app.*
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasFragmentInjector
+import javax.inject.Inject
 
-abstract class AbstractDialogFragment : DialogFragment() {
+abstract class BaseDialogFragment : DialogFragment(), HasFragmentInjector {
+    @Inject internal open lateinit var childFragmentInjector: DispatchingAndroidInjector<Fragment>
+
+    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    override fun onAttach(activity: Activity?) {
+        AndroidInjection.inject(this)
+        super.onAttach(activity)
+    }
+
+    override fun fragmentInjector(): AndroidInjector<Fragment> = childFragmentInjector
+
     // This is work around for the situation when method show is called after saving
     // state even if you do all right. Especially when show is called after click on
     // a button.
@@ -45,5 +58,5 @@ abstract class AbstractDialogFragment : DialogFragment() {
         }
     }
 
-    fun isShowing(): Boolean = dialog != null && dialog.isShowing
+    internal fun isShowing(): Boolean = dialog != null && dialog.isShowing
 }
