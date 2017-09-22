@@ -31,7 +31,7 @@ class AuthenticationInterceptor(private val account: Account, private val servic
         val original = chain.request()
         val originalHttpUrl = original.url()
 
-        return if (account.authenticated()) {
+        return if (account.authenticated) {
             chain.proceed(oAuthSignRequest(original, serviceType, account))
         } else {
             val httpUrl = originalHttpUrl.newBuilder()
@@ -48,8 +48,8 @@ class AuthenticationInterceptor(private val account: Account, private val servic
     private fun oAuthSignRequest(request: Request, serviceType: OkApiServiceType, account: Account): Request {
         val consumerKey = serviceType.consumerKey
         val consumerSecret = serviceType.consumerSecret
-        val accessToken = account.accessToken()
-        val accessSecret = account.accessSecret()
+        val accessToken = account.accessToken
+        val accessSecret = account.accessSecret
 
         val nonce = ByteArray(32)
         random.nextBytes(nonce)

@@ -36,7 +36,7 @@ class OkApiServiceImpl(private val serviceType: OkApiServiceType, private val ac
 
     override fun accountType(): AccountType = account.accountType
     override fun serviceType(): OkApiServiceType = serviceType
-    override fun authenticated(): Boolean = account.authenticated()
+    override fun authenticated(): Boolean = account.authenticated
 
     override fun geocache(code: String, logsPerCache: Int): Single<Geocache> {
         return apiInstance.geocache(

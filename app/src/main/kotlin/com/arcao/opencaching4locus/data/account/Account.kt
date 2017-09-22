@@ -14,9 +14,11 @@ class Account(private val context : Context, val accountType: AccountType) {
 
     private val preferences : SharedPreferences = context.getSharedPreferences("ACCOUNT_${accountType.name}", Context.MODE_PRIVATE)
 
-    fun authenticated() : Boolean = preferences.contains(PREF_TOKEN)
-    fun accessToken(): String? = preferences.getString(PREF_TOKEN, null)
-    fun accessSecret(): String? = preferences.getString(PREF_SECRET, null)
+
+    val authenticated : Boolean get() = preferences.contains(PREF_TOKEN)
+    val accessToken: String? get() = preferences.getString(PREF_TOKEN, null)
+    val accessSecret: String? get() = preferences.getString(PREF_SECRET, null)
+    val userName: String? get() = preferences.getString(PREF_USERNAME, null)
 
     fun authorize(token: OAuth1AccessToken) {
         preferences.edit().apply {

@@ -23,7 +23,7 @@ class OkApiServicePLTest {
         val retrofitBuilder = dataModule.provideRetrofitBuilder(moshi)
 
         val account = mock<Account> {
-            on { authenticated() } doReturn (false)
+            on { authenticated } doReturn (false)
         }
 
         service = okApiModule.provideOkApiServicesPL(account, okHttpClient, retrofitBuilder)
