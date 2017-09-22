@@ -9,12 +9,8 @@ import okhttp3.Response
 import okio.Buffer
 import okio.ByteString
 import java.io.IOException
-import java.security.InvalidKeyException
-import java.security.NoSuchAlgorithmException
 import java.security.SecureRandom
 import java.util.*
-import javax.crypto.Mac
-import javax.crypto.spec.SecretKeySpec
 
 
 class AuthenticationInterceptor(private val account: Account, private val serviceType: OkApiServiceType) : Interceptor {
@@ -58,8 +54,8 @@ class AuthenticationInterceptor(private val account: Account, private val servic
         val nonce = ByteArray(32)
         random.nextBytes(nonce)
 
-        val oauthNonce = ByteString.of(*nonce).base64().replace("\\W", "")
-        val oauthTimestamp = System.currentTimeMillis().toString()
+        val oauthNonce = ByteString.of(*nonce).base64().replace(Regex("\\W"), "")
+        val oauthTimestamp = (System.currentTimeMillis() / 1000).toString()
 
         val consumerKeyValue = OAuthEncoder.encode(consumerKey)
         val accessTokenValue = OAuthEncoder.encode(accessToken)
@@ -117,20 +113,7 @@ class AuthenticationInterceptor(private val account: Account, private val servic
         }
 
         val signingKey = OAuthEncoder.encode(consumerSecret) + "&" + OAuthEncoder.encode(accessSecret)
-
-        val keySpec = SecretKeySpec(signingKey.toByteArray(), "HmacSHA1")
-        val mac: Mac
-        try {
-            mac = Mac.getInstance("HmacSHA1")
-            mac.init(keySpec)
-        } catch (e: NoSuchAlgorithmException) {
-            throw IllegalStateException(e)
-        } catch (e: InvalidKeyException) {
-            throw IllegalStateException(e)
-        }
-
-        val result = mac.doFinal(base.readByteArray())
-        val signature = ByteString.of(*result).base64()
+        val signature = base.hmacSha1(ByteString.encodeUtf8(signingKey)).base64()
 
         val authorization = "OAuth " +
                 "$OAUTH_CONSUMER_KEY=\"$consumerKeyValue\", " +
