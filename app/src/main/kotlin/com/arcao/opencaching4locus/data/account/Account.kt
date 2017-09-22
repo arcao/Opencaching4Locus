@@ -18,10 +18,15 @@ class Account(private val context : Context, val accountType: AccountType) {
     fun accessToken(): String? = preferences.getString(PREF_TOKEN, null)
     fun accessSecret(): String? = preferences.getString(PREF_SECRET, null)
 
-    fun authorize(token: OAuth1AccessToken, user: User) {
+    fun authorize(token: OAuth1AccessToken) {
         preferences.edit().apply {
             putString(PREF_TOKEN, token.token)
             putString(PREF_SECRET, token.tokenSecret)
+        }.apply()
+    }
+
+    fun updateUser(user: User) {
+        preferences.edit().apply {
             putString(PREF_USERNAME, user.username)
         }.apply()
     }
