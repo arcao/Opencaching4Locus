@@ -3,7 +3,7 @@
 buildscript {
     ext.androidGradleVer = '3.0.0-beta6'
     ext.gradleVersionsPluginVer = '0.15.0'
-    ext.kotlinVer = '1.1.4-3'
+    ext.kotlinVer = '1.1.50'
 
     ext.isTravis = 'true' == System.getenv('TRAVIS')
     ext.preDexEnabled = 'true' == System.getProperty('pre-dex', 'true')
