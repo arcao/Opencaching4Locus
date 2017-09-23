@@ -8,7 +8,9 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -38,13 +40,24 @@ class AuthenticationActivity : BaseActivity() {
             webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean =
                         checkRequest(request)
+
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    super.onPageStarted(view, url, favicon)
+                    showProgress()
+                }
+
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+                    hideProgress()
+                }
             }
         }
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(AuthenticationViewModel::class.java)
         viewModel.authorizationState.observe(this, Observer {
             when (it) {
-                is AuthenticationRequired -> binding.webView.loadUrl(it.url)
+                is AuthenticationStarted, AccessTokenRequestSent -> showProgress()
+                is RequestTokenReceived -> openAuthorizeUrl(it.url)
                 is AuthenticationError -> showError(it.throwable)
                 is AuthenticationSuccess -> {
                     setResult(Activity.RESULT_OK)
@@ -55,6 +68,18 @@ class AuthenticationActivity : BaseActivity() {
 
         if (savedInstanceState == null)
             viewModel.retrieveRequestToken(accountType)
+    }
+
+    private fun showProgress() {
+        binding.progressHolder.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        binding.progressHolder.visibility = View.GONE
+    }
+
+    private fun openAuthorizeUrl(url: String) {
+        binding.webView.loadUrl(url)
     }
 
     private fun checkRequest(request: WebResourceRequest): Boolean {

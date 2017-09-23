@@ -50,12 +50,13 @@ class AuthenticationViewModel @Inject constructor(
             accountManager.getAccount(accountType).requestToken = requestToken
             oauthService.getAuthorizationUrl(requestToken)
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
-                { authorizationState.value = AuthenticationRequired(it) },
+                { authorizationState.value = RequestTokenReceived(it) },
                 { authorizationState.value = AuthenticationError(it) }
         ).addTo(disposables)
     }
 
     fun retrieveAccessToken(accountType: AccountType, url: Uri) {
+        authorizationState.value = AccessTokenRequestSent
         Single.fromCallable {
             val serviceType = accountType.toServiceType()
             val oauthService = createOAuthService(serviceType)
