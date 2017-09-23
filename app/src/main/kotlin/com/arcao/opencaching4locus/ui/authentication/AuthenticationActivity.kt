@@ -10,7 +10,6 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -70,26 +69,26 @@ class AuthenticationActivity : BaseActivity() {
             viewModel.retrieveRequestToken(accountType)
     }
 
-    private fun showProgress() {
-        binding.progressHolder.visibility = View.VISIBLE
+    private inline fun showProgress() {
+        binding.isLoading = true
     }
 
-    private fun hideProgress() {
-        binding.progressHolder.visibility = View.GONE
+    private inline fun hideProgress() {
+        binding.isLoading = false
     }
 
-    private fun openAuthorizeUrl(url: String) {
+    private inline fun openAuthorizeUrl(url: String) {
         binding.webView.loadUrl(url)
     }
 
-    private fun checkRequest(request: WebResourceRequest): Boolean {
-        if (request.url.toString().startsWith(AppConstants.OAUTH_CALLBACK_URL)) {
+    private fun checkRequest(request: WebResourceRequest): Boolean = when {
+        request.url.toString().startsWith(AppConstants.OAUTH_CALLBACK_URL) -> {
             viewModel.retrieveAccessToken(accountType, request.url)
-            return true
+            true
         }
-
-        return false
+        else -> false
     }
+
 
     companion object {
         const val EXTRA_ACCOUNT_TYPE = "ACCOUNT_TYPE"
