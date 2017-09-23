@@ -1,5 +1,6 @@
 package com.arcao.opencaching4locus.data
 
+import com.arcao.opencaching4locus.BuildConfig
 import com.arcao.opencaching4locus.data.account.AccountModule
 import com.arcao.opencaching4locus.data.moshi.adapter.DateAdapter
 import com.arcao.opencaching4locus.data.moshi.adapter.LocationAdapter
@@ -28,9 +29,11 @@ class DataModule {
     }
 
     @Provides fun provideOkHttpClient() : OkHttpClient {
-        return OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .build()
+        return OkHttpClient.Builder().apply {
+            if (BuildConfig.DEBUG) {
+                addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            }
+        }.build()
     }
 
     @Provides fun provideRetrofitBuilder(moshi: Moshi) : Retrofit.Builder {

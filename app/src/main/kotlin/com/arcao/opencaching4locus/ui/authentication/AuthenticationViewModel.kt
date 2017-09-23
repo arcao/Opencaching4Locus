@@ -3,6 +3,7 @@ package com.arcao.opencaching4locus.ui.authentication
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.net.Uri
+import com.arcao.opencaching4locus.BuildConfig
 import com.arcao.opencaching4locus.data.account.AccountManager
 import com.arcao.opencaching4locus.data.account.AccountType
 import com.arcao.opencaching4locus.data.oauth.provider.OpencachingOAuthProvider
@@ -22,7 +23,7 @@ import javax.inject.Inject
 
 class AuthenticationViewModel @Inject constructor(
         private val services: Map<OkApiServiceType, @JvmSuppressWildcards OkApiService>,
-        private val okhttpClient : OkHttpClient,
+        private val okHttpClient: OkHttpClient,
         private val accountManager : AccountManager
 ) : ViewModel() {
 
@@ -75,11 +76,14 @@ class AuthenticationViewModel @Inject constructor(
     }
 
     private fun createOAuthService(serviceType: OkApiServiceType): OAuth10aService {
-        val serviceBuilder = ServiceBuilder(serviceType.consumerKey)
-                .apiSecret(serviceType.consumerSecret)
-                .callback(AppConstants.OAUTH_CALLBACK_URL)
-                .httpClient(OkHttpHttpClient(okhttpClient))
-                .debug()
+        val serviceBuilder = ServiceBuilder(serviceType.consumerKey).apply {
+            apiSecret(serviceType.consumerSecret)
+            callback(AppConstants.OAUTH_CALLBACK_URL)
+            httpClient(OkHttpHttpClient(okHttpClient))
+            if (BuildConfig.DEBUG) {
+                debug()
+            }
+        }
 
         return serviceBuilder.build(OpencachingOAuthProvider(serviceType))
     }
