@@ -39,14 +39,14 @@ class AuthorizationViewModel @Inject constructor(
     }
 
     fun retrieveRequestToken(accountType: AccountType) {
-        val serviceType = accountType.toServiceType()
-        val oauthService = createOAuthService(serviceType)
-
         // clean state
         authorizationState.value = AuthorizationStarted
 
         Single.fromCallable<String> {
+            val serviceType = accountType.toServiceType()
+            val oauthService = createOAuthService(serviceType)
             val requestToken = oauthService.requestToken
+
             accountManager.getAccount(accountType).requestToken = requestToken
             oauthService.getAuthorizationUrl(requestToken)
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
@@ -56,11 +56,11 @@ class AuthorizationViewModel @Inject constructor(
     }
 
     fun retrieveAccessToken(accountType: AccountType, url: Uri) {
-        val serviceType = accountType.toServiceType()
-        val oauthService = createOAuthService(serviceType)
-        val account = accountManager.getAccount(accountType)
-
         Single.fromCallable {
+            val serviceType = accountType.toServiceType()
+            val oauthService = createOAuthService(serviceType)
+            val account = accountManager.getAccount(accountType)
+
             val okService = services[serviceType]!!
             val requestToken = account.requestToken
             val accessToken = oauthService.getAccessToken(requestToken, url.getQueryParameter(OAUTH_VERIFIER))
