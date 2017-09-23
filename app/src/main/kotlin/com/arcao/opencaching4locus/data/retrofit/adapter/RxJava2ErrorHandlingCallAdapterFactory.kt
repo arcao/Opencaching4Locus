@@ -24,7 +24,7 @@ class RxJava2ErrorHandlingCallAdapterFactory private constructor() : CallAdapter
             return wrapped?.responseType() ?: Void.TYPE
         }
 
-        override fun adapt(call: Call<Any>?): Any? {
+        override fun adapt(call: Call<Any>): Any? {
             if (wrapped == null)
                 return null
 
@@ -47,7 +47,7 @@ class RxJava2ErrorHandlingCallAdapterFactory private constructor() : CallAdapter
 
                 return try {
                     val converter = retrofit.responseBodyConverter<OkApiErrorResponse>(OkApiErrorResponse::class.java, arrayOfNulls(0))
-                    val (error) = converter.convert(response?.errorBody())
+                    val (error) = converter.convert(response.errorBody())
                     OkApiException(url, error)
                 } catch (e: IOException) {
                     throwable
