@@ -6,7 +6,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.arcao.opencaching4locus.ui.authorization.AuthorizationActivity"
+        tools:context="com.arcao.opencaching4locus.ui.authentication.AuthenticationActivity"
         tools:layout_editor_absoluteY="81dp"
         tools:layout_editor_absoluteX="0dp"
         >

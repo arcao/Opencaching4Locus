@@ -1,4 +1,4 @@
-package com.arcao.opencaching4locus.ui.authorization
+package com.arcao.opencaching4locus.ui.authentication
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
@@ -20,7 +20,7 @@ import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import javax.inject.Inject
 
-class AuthorizationViewModel @Inject constructor(
+class AuthenticationViewModel @Inject constructor(
         private val services: Map<OkApiServiceType, @JvmSuppressWildcards OkApiService>,
         private val okhttpClient : OkHttpClient,
         private val accountManager : AccountManager
@@ -30,7 +30,7 @@ class AuthorizationViewModel @Inject constructor(
         private const val OAUTH_VERIFIER = "oauth_verifier"
     }
 
-    val authorizationState = MutableLiveData<AuthorizationState>()
+    val authorizationState = MutableLiveData<AuthenticationState>()
     private val disposables = CompositeDisposable()
 
     override fun onCleared() {
@@ -40,7 +40,7 @@ class AuthorizationViewModel @Inject constructor(
 
     fun retrieveRequestToken(accountType: AccountType) {
         // clean state
-        authorizationState.value = AuthorizationStarted
+        authorizationState.value = AuthenticationStarted
 
         Single.fromCallable<String> {
             val serviceType = accountType.toServiceType()
@@ -50,8 +50,8 @@ class AuthorizationViewModel @Inject constructor(
             accountManager.getAccount(accountType).requestToken = requestToken
             oauthService.getAuthorizationUrl(requestToken)
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
-                { authorizationState.value = AuthorizationRequired(it) },
-                { authorizationState.value = AuthorizationError(it) }
+                { authorizationState.value = AuthenticationRequired(it) },
+                { authorizationState.value = AuthenticationError(it) }
         ).addTo(disposables)
     }
 
@@ -68,8 +68,8 @@ class AuthorizationViewModel @Inject constructor(
             account.authorize(accessToken)
             account.updateUser(okService.user().blockingGet())
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
-                { authorizationState.value = AuthorizationSuccess },
-                { authorizationState.value = AuthorizationError(it) }
+                { authorizationState.value = AuthenticationSuccess },
+                { authorizationState.value = AuthenticationError(it) }
         ).addTo(disposables)
     }
 

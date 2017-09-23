@@ -1,4 +1,4 @@
-package com.arcao.opencaching4locus.ui.authorization
+package com.arcao.opencaching4locus.ui.authentication
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -14,16 +14,16 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.arcao.opencaching4locus.R
 import com.arcao.opencaching4locus.data.account.AccountType
-import com.arcao.opencaching4locus.databinding.ActivityAuthorizationBinding
+import com.arcao.opencaching4locus.databinding.ActivityAuthenticationBinding
 import com.arcao.opencaching4locus.ui.base.BaseActivity
 import com.arcao.opencaching4locus.ui.base.constants.AppConstants
 import com.arcao.opencaching4locus.ui.base.util.showError
 import javax.inject.Inject
 
-class AuthorizationActivity : BaseActivity() {
+class AuthenticationActivity : BaseActivity() {
     @Inject internal lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: AuthorizationViewModel
-    private lateinit var binding: ActivityAuthorizationBinding
+    private lateinit var viewModel: AuthenticationViewModel
+    private lateinit var binding: ActivityAuthenticationBinding
     private lateinit var accountType: AccountType
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -32,8 +32,7 @@ class AuthorizationActivity : BaseActivity() {
 
         accountType = intent.getSerializableExtra(EXTRA_ACCOUNT_TYPE) as AccountType
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_authorization)
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_authentication)
         binding.webView.apply {
             settings.javaScriptEnabled = true
             webViewClient = object : WebViewClient() {
@@ -42,12 +41,12 @@ class AuthorizationActivity : BaseActivity() {
             }
         }
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(AuthorizationViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(AuthenticationViewModel::class.java)
         viewModel.authorizationState.observe(this, Observer {
             when (it) {
-                is AuthorizationRequired -> binding.webView.loadUrl(it.url)
-                is AuthorizationError -> showError(it.throwable)
-                is AuthorizationSuccess -> {
+                is AuthenticationRequired -> binding.webView.loadUrl(it.url)
+                is AuthenticationError -> showError(it.throwable)
+                is AuthenticationSuccess -> {
                     setResult(Activity.RESULT_OK)
                     finish()
                 }
@@ -69,7 +68,7 @@ class AuthorizationActivity : BaseActivity() {
 
     companion object {
         const val EXTRA_ACCOUNT_TYPE = "ACCOUNT_TYPE"
-        fun createIntent(context: Context, accountType: AccountType): Intent = Intent(context, AuthorizationActivity::class.java).apply {
+        fun createIntent(context: Context, accountType: AccountType): Intent = Intent(context, AuthenticationActivity::class.java).apply {
             putExtra(EXTRA_ACCOUNT_TYPE, accountType)
         }
     }

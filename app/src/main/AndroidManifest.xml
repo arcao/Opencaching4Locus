@@ -59,7 +59,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.authorization.AuthorizationActivity" android:label="@string/activity_title_sign_in">
+        <activity android:name=".ui.authentication.AuthenticationActivity" android:label="@string/activity_title_sign_in">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
