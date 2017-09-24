@@ -19,6 +19,7 @@ import com.arcao.opencaching4locus.databinding.ActivityAuthenticationBinding
 import com.arcao.opencaching4locus.ui.base.BaseActivity
 import com.arcao.opencaching4locus.ui.base.constants.AppConstants
 import com.arcao.opencaching4locus.ui.base.util.showError
+import timber.log.Timber
 import javax.inject.Inject
 
 @Suppress("NOTHING_TO_INLINE")
@@ -27,6 +28,8 @@ class AuthenticationActivity : BaseActivity() {
     private lateinit var viewModel: AuthenticationViewModel
     private lateinit var binding: ActivityAuthenticationBinding
     private lateinit var accountType: AccountType
+
+    private var requestTokenReceived = false
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,8 +71,22 @@ class AuthenticationActivity : BaseActivity() {
             }
         })
 
+        savedInstanceState?.let {
+            binding.webView.restoreState(it)
+            requestTokenReceived = it.getBoolean(STATE_REQUEST_TOKEN_RECEIVED)
+            binding.isLoading = it.getBoolean(STATE_IS_LOADING)
+        }
+
         if (savedInstanceState == null)
             viewModel.retrieveRequestToken(accountType)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        binding.webView.saveState(outState)
+        outState.putBoolean(STATE_REQUEST_TOKEN_RECEIVED, requestTokenReceived)
+        outState.putBoolean(STATE_IS_LOADING, binding.isLoading)
+
+        super.onSaveInstanceState(outState)
     }
 
     private inline fun showProgress() {
@@ -81,6 +98,10 @@ class AuthenticationActivity : BaseActivity() {
     }
 
     private inline fun openAuthorizeUrl(url: String) {
+        if (requestTokenReceived) return
+        Timber.d("Received: $url")
+
+        requestTokenReceived = true
         binding.webView.loadUrl(url)
     }
 
@@ -94,6 +115,9 @@ class AuthenticationActivity : BaseActivity() {
 
 
     companion object {
+        private const val STATE_REQUEST_TOKEN_RECEIVED = "STATE_REQUEST_TOKEN_RECEIVED"
+        private const val STATE_IS_LOADING = "STATE_IS_LOADING"
+
         const val EXTRA_ACCOUNT_TYPE = "ACCOUNT_TYPE"
         fun createIntent(context: Context, accountType: AccountType): Intent = Intent(context, AuthenticationActivity::class.java).apply {
             putExtra(EXTRA_ACCOUNT_TYPE, accountType)
