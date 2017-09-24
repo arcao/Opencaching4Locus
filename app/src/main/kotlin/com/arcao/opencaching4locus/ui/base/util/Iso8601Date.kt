@@ -29,8 +29,8 @@ fun String.fromIso8601(): Date {
     }
 
     s = s.replace("Z", "+00:00", true)
-    try {
-        s = s.substring(0, 22) + s.substring(23)  // to get rid of the ":"
+    s = try {
+        s.substring(0, 22) + s.substring(23)  // to get rid of the ":"
     } catch (e: IndexOutOfBoundsException) {
         throw ParseException("Invalid length", 0)
     }

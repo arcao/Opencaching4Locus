@@ -44,10 +44,11 @@ class RxJava2ErrorHandlingCallAdapterFactory private constructor() : CallAdapter
             if (throwable is HttpException) {
                 val response = throwable.response()
                 val url = response.raw().request().url().toString()
+                val responseBody = response.errorBody() ?: return throwable
 
                 return try {
                     val converter = retrofit.responseBodyConverter<OkApiErrorResponse>(OkApiErrorResponse::class.java, arrayOfNulls(0))
-                    val (error) = converter.convert(response.errorBody())
+                    val (error) = converter.convert(responseBody)
                     OkApiException(url, error)
                 } catch (e: IOException) {
                     throwable

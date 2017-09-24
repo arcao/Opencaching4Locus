@@ -21,6 +21,7 @@ import com.arcao.opencaching4locus.ui.base.constants.AppConstants
 import com.arcao.opencaching4locus.ui.base.util.showError
 import javax.inject.Inject
 
+@Suppress("NOTHING_TO_INLINE")
 class AuthenticationActivity : BaseActivity() {
     @Inject internal lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: AuthenticationViewModel

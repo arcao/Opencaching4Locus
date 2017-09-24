@@ -5,11 +5,10 @@ import com.github.scribejava.core.builder.api.DefaultApi10a
 import com.github.scribejava.core.model.OAuth1RequestToken
 import com.github.scribejava.core.utils.OAuthEncoder
 
-open class OpencachingOAuthProvider(private val serviceType: OkApiServiceType) : DefaultApi10a() {
+open class OpencachingOAuthProvider(serviceType: OkApiServiceType) : DefaultApi10a() {
     private val requestTokenEndpoint = "${serviceType.endpoint}services/oauth/request_token"
     private val accessTokenEndpoint = "${serviceType.endpoint}services/oauth/access_token"
     private val authorizationUrl = "${serviceType.endpoint}services/oauth/authorize"
-
 
     override fun getRequestTokenEndpoint(): String {
         return requestTokenEndpoint
@@ -22,6 +21,4 @@ open class OpencachingOAuthProvider(private val serviceType: OkApiServiceType) :
     override fun getAuthorizationUrl(requestToken: OAuth1RequestToken): String {
         return authorizationUrl + "?interactivity=confirm_user&oauth_token=" + OAuthEncoder.encode(requestToken.token)
     }
-
-    //override fun getSignatureType(): OAuth1SignatureType = OAuth1SignatureType.QueryString
 }

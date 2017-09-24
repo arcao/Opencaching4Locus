@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <import type="android.view.View"/>
-        <variable name="isLoading" type="Boolean"/>
+        <variable name="isLoading" type="boolean"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"

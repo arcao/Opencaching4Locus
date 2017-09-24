@@ -14,15 +14,17 @@ import java.util.*
 
 
 class AuthenticationInterceptor(private val account: Account, private val serviceType: OkApiServiceType) : Interceptor {
-    private val OAUTH_CONSUMER_KEY = "oauth_consumer_key"
-    private val OAUTH_NONCE = "oauth_nonce"
-    private val OAUTH_SIGNATURE = "oauth_signature"
-    private val OAUTH_SIGNATURE_METHOD = "oauth_signature_method"
-    private val OAUTH_SIGNATURE_METHOD_VALUE = "HMAC-SHA1"
-    private val OAUTH_TIMESTAMP = "oauth_timestamp"
-    private val OAUTH_ACCESS_TOKEN = "oauth_token"
-    private val OAUTH_VERSION = "oauth_version"
-    private val OAUTH_VERSION_VALUE = "1.0"
+    companion object {
+        private const val OAUTH_CONSUMER_KEY = "oauth_consumer_key"
+        private const val OAUTH_NONCE = "oauth_nonce"
+        private const val OAUTH_SIGNATURE = "oauth_signature"
+        private const val OAUTH_SIGNATURE_METHOD = "oauth_signature_method"
+        private const val OAUTH_SIGNATURE_METHOD_VALUE = "HMAC-SHA1"
+        private const val OAUTH_TIMESTAMP = "oauth_timestamp"
+        private const val OAUTH_ACCESS_TOKEN = "oauth_token"
+        private const val OAUTH_VERSION = "oauth_version"
+        private const val OAUTH_VERSION_VALUE = "1.0"
+    }
 
     private val random = SecureRandom()
 

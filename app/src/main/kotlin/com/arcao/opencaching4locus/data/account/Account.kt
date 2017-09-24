@@ -6,7 +6,7 @@ import com.arcao.opencaching4locus.model.response.User
 import com.github.scribejava.core.model.OAuth1AccessToken
 import com.github.scribejava.core.model.OAuth1RequestToken
 
-class Account(private val context : Context, val accountType: AccountType) {
+class Account(context : Context, val accountType: AccountType) {
     companion object {
         private const val PREF_TOKEN = "TOKEN"
         private const val PREF_SECRET = "SECRET"

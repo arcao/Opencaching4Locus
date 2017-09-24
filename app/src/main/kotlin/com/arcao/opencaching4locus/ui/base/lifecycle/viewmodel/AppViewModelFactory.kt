@@ -23,8 +23,8 @@ class AppViewModelFactory @Inject constructor(
         if (creator == null) {
             throw IllegalArgumentException("unknown model class " + modelClass)
         }
-        try {
-            return creator.get() as T
+        return try {
+            creator.get() as T
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
