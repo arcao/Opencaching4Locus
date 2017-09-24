@@ -9,8 +9,8 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
-import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.arcao.opencaching4locus.R
@@ -38,17 +38,19 @@ class AuthenticationActivity : BaseActivity() {
         binding.webView.apply {
             settings.javaScriptEnabled = true
             webViewClient = object : WebViewClient() {
-                override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean =
-                        checkRequest(request)
+                @Suppress("OverridingDeprecatedMember")
+                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean = checkUrl(url)
 
-                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
                     super.onPageStarted(view, url, favicon)
                     showProgress()
                 }
 
-                override fun onPageFinished(view: WebView?, url: String?) {
+                override fun onPageFinished(view: WebView, url: String) {
                     super.onPageFinished(view, url)
-                    hideProgress()
+                    // don't hide progress bar for OAUTH_CALLBACK_URL
+                    if (!url.startsWith(AppConstants.OAUTH_CALLBACK_URL))
+                        hideProgress()
                 }
             }
         }
@@ -82,9 +84,9 @@ class AuthenticationActivity : BaseActivity() {
         binding.webView.loadUrl(url)
     }
 
-    private fun checkRequest(request: WebResourceRequest): Boolean = when {
-        request.url.toString().startsWith(AppConstants.OAUTH_CALLBACK_URL) -> {
-            viewModel.retrieveAccessToken(accountType, request.url)
+    private fun checkUrl(url: String): Boolean = when {
+        url.startsWith(AppConstants.OAUTH_CALLBACK_URL) -> {
+            viewModel.retrieveAccessToken(accountType, Uri.parse(url))
             true
         }
         else -> false
