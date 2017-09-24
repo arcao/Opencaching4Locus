@@ -58,6 +58,7 @@ class AuthenticationViewModel @Inject constructor(
 
     fun retrieveAccessToken(accountType: AccountType, url: Uri) {
         authorizationState.value = AccessTokenRequestSent
+
         Single.fromCallable {
             val serviceType = accountType.toServiceType()
             val oauthService = createOAuthService(serviceType)
