@@ -32,7 +32,7 @@ class AuthenticationActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        accountType = intent.getSerializableExtra(EXTRA_ACCOUNT_TYPE) as AccountType
+        accountType = (intent.getSerializableExtra(EXTRA_ACCOUNT_TYPE) ?: AccountType.OPENCACHING_PL) as AccountType
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_authentication)
         binding.webView.apply {
