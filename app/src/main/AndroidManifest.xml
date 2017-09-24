@@ -48,7 +48,7 @@
         android:largeHeap="true"
         android:theme="@style/Theme.AppCompat"
         android:fullBackupContent="@xml/backup_descriptor"
-        >
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".ui.dashboard.DashboardActivity"
             android:exported="true"
