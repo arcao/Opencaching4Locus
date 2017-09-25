@@ -11,6 +11,21 @@ data class BoundingBox(
 
     override fun toString(): String {
         // boundary box format: S|W|N|E
-        return "${bottomRight.latitude}|${topLeft.longitude}|${topLeft.latitude}|${bottomRight.longitude}"
+        return arrayOf(
+                bottomRight.latitude,
+                topLeft.longitude,
+                topLeft.latitude,
+                bottomRight.longitude
+        ).joinToString("|")
+    }
+
+    companion object {
+        fun from(string: String) : BoundingBox {
+            if (string.count { it == '|' } != 3)
+                throw IllegalArgumentException("Wrong format.")
+
+            val coordinates = string.split("|").map { it.toDouble() }
+            return BoundingBox(coordinates[0], coordinates[1], coordinates[2], coordinates[3])
+        }
     }
 }

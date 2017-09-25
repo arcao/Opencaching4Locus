@@ -19,7 +19,6 @@ import com.arcao.opencaching4locus.databinding.ActivityAuthenticationBinding
 import com.arcao.opencaching4locus.ui.base.BaseActivity
 import com.arcao.opencaching4locus.ui.base.constants.AppConstants
 import com.arcao.opencaching4locus.ui.base.util.showError
-import timber.log.Timber
 import javax.inject.Inject
 
 @Suppress("NOTHING_TO_INLINE")
@@ -71,10 +70,10 @@ class AuthenticationActivity : BaseActivity() {
             }
         })
 
-        savedInstanceState?.let {
-            binding.webView.restoreState(it)
-            requestTokenReceived = it.getBoolean(STATE_REQUEST_TOKEN_RECEIVED)
-            binding.isLoading = it.getBoolean(STATE_IS_LOADING)
+        savedInstanceState?.apply {
+            binding.webView.restoreState(this)
+            requestTokenReceived = getBoolean(STATE_REQUEST_TOKEN_RECEIVED)
+            binding.isLoading = getBoolean(STATE_IS_LOADING)
         }
 
         if (savedInstanceState == null)
@@ -82,9 +81,11 @@ class AuthenticationActivity : BaseActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        binding.webView.saveState(outState)
-        outState.putBoolean(STATE_REQUEST_TOKEN_RECEIVED, requestTokenReceived)
-        outState.putBoolean(STATE_IS_LOADING, binding.isLoading)
+        outState.apply {
+            binding.webView.saveState(this)
+            putBoolean(STATE_REQUEST_TOKEN_RECEIVED, requestTokenReceived)
+            putBoolean(STATE_IS_LOADING, binding.isLoading)
+        }
 
         super.onSaveInstanceState(outState)
     }
@@ -97,11 +98,10 @@ class AuthenticationActivity : BaseActivity() {
         binding.isLoading = false
     }
 
-    private inline fun openAuthorizeUrl(url: String) {
+    private fun openAuthorizeUrl(url: String) {
         if (requestTokenReceived) return
-        Timber.d("Received: $url")
-
         requestTokenReceived = true
+
         binding.webView.loadUrl(url)
     }
 

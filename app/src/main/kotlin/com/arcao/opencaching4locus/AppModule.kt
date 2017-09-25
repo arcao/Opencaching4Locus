@@ -1,10 +1,16 @@
 package com.arcao.opencaching4locus
 
 import android.content.Context
-import dagger.Binds
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
+import dagger.Module
+import dagger.Provides
 
-@dagger.Module
+@Module
 abstract class AppModule {
-    @Binds
-    abstract fun context(app: App): Context
+    @Provides
+    fun providesContext(app: App): Context = app
+
+    @Provides
+    fun provideSharedPreferences(context: Context) : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
 }

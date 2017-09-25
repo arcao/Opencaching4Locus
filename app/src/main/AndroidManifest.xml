@@ -61,5 +61,7 @@
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:label="@string/activity_title_settings"/>
+
+        <service android:name=".ui.livemap.LiveMapJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
     </application>
 </manifest>
