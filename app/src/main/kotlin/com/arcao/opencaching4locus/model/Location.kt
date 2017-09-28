@@ -1,6 +1,6 @@
 package com.arcao.opencaching4locus.model
 
-import locus.api.objects.extra.Location
+import locus.api.objects.extra.Location as LocusLocation
 
 data class Location(
         val latitude: Double,
@@ -11,6 +11,6 @@ data class Location(
     }
 
     companion object {
-        fun from(location: Location) = Location(location.latitude, location.longitude)
+        fun from(location: LocusLocation) = Location(location.latitude, location.longitude)
     }
 }
