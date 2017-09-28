@@ -25,11 +25,16 @@ class LiveMapDownloadTask @Inject constructor(
     @WorkerThread
     fun run(boundingBox: BoundingBox) {
         var wpIndex = 1
+        var accountTypeIndex = 1
+        val accountTypeSize = AccountType.values().size
+
+        manager.showProgress(0, accountTypeSize)
 
         Flowable.fromArray(*AccountType.values())
                 .observeOn(Schedulers.io())
                 .flatMap{ retrieveGeocaches(it, boundingBox) }
                 .map(mapper::toLiveMapWaypoint)
+                .doOnNext { manager.showProgress(accountTypeIndex++, accountTypeSize) }
                 .buffer(50)
                 .map{createWaypointPack(it, wpIndex++) }
                 .subscribe(

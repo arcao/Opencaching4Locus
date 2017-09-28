@@ -22,10 +22,8 @@ class LiveMapBroadcastReceiver : BroadcastReceiver() {
 
         AndroidInjection.inject(this, context)
 
-        if (notificationManager.handleBroadcastIntent(intent)) {
-            mForceUpdate = notificationManager.isForceUpdateRequiredInFuture()
+        if (notificationManager.handleBroadcastIntent(intent))
             return
-        }
 
         if (!notificationManager.enable) {
             return
@@ -62,10 +60,8 @@ class LiveMapBroadcastReceiver : BroadcastReceiver() {
                 if (!update.isMapVisible)
                     return
 
-                if (!update.isNewMapCenter && !update.isNewZoomLevel && !mForceUpdate)
+                if (!update.isNewMapCenter && !update.isNewZoomLevel && !notificationManager.forceUpdateRequired)
                     return
-
-                mForceUpdate = false
 
                 // TODO necessary?
                 // When Live map is enabled, Locus sometimes send NaN when is starting
@@ -95,8 +91,6 @@ class LiveMapBroadcastReceiver : BroadcastReceiver() {
 
         private const val DEFAULT_DISTANCE_LIMIT = 100f
         private const val DISTANCE_LIMIT_MULTIPLIER = 0.5f
-
-        internal var mForceUpdate: Boolean = false
 
         private fun computeNotificationLimit(i: Intent): Float {
             val locMapCenter = LocusUtils.getLocationFromIntent(i, VAR_LOC_MAP_CENTER)

@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Opencaching4Locus</string>
+
     <string name="button_ok">OK</string>
+
     <string name="activity_title_sign_in">Sign in</string>
     <string name="activity_title_dashboard">Opencaching4Locus</string>
     <string name="activity_title_settings">Settings</string>
+
     <string name="preference_accounts">Accounts</string>
     <string name="preference_accounts_logout_summary">Signed in as %s. Tap to sign out.</string>
     <string name="preference_accounts_login_summary">Not signed in. Tap to sign in.</string>
+
+    <string name="error_live_map_periodic_updates">You do not have allowed sending Periodic updates from Locus Map. Please, enable it first in Locus Map under: Settings → Miscellaneous → Enable periodic updates for Add-on.</string>
+    <string name="toast_live_map_enabled">Live map is now enabled.</string>
+    <string name="toast_live_map_disabled">Live map is now paused.</string>
+
+    <string name="notify_live_map_channel_name">Live map</string>
+    <string name="notify_live_map_channel_description"/>
+    <string name="notify_live_map_message_enabled">Live map is enabled.</string>
+    <string name="notify_live_map_message_disabled">Live map is paused.</string>
+    <string name="notify_live_map_message_downloading">Downloading live map geocaches…</string>
+    <string name="notify_live_map_action_settings">Settings</string>
+    <string name="notify_live_map_action_disable">Pause</string>
+    <string name="notify_live_map_action_enable">Enable</string>
+    <string name="notify_live_map">Opencaching4Locus live map</string>
+
+    <string name="menu_live_map">Live map</string>
 </resources>

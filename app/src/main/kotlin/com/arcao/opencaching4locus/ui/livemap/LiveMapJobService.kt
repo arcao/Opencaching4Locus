@@ -8,6 +8,8 @@ import android.content.ComponentName
 import android.content.Context
 import android.os.PersistableBundle
 import android.support.annotation.UiThread
+import com.arcao.opencaching4locus.data.account.AccountType
+import com.arcao.opencaching4locus.model.Location
 import com.arcao.opencaching4locus.model.request.BoundingBox
 import com.arcao.opencaching4locus.ui.livemap.task.LiveMapDownloadTask
 import dagger.android.AndroidInjection
@@ -16,12 +18,14 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
-import locus.api.objects.extra.Location
+import locus.api.android.ActionDisplayPoints
+import locus.api.android.objects.PackWaypoints
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import locus.api.objects.extra.Location as LocusLocation
 
 class LiveMapJobService : JobService() {
-    @Inject lateinit var task : LiveMapDownloadTask
+    @Inject lateinit var task: LiveMapDownloadTask
     private lateinit var subject: Subject<JobParameters>
     private lateinit var disposable: Disposable
 
@@ -66,7 +70,7 @@ class LiveMapJobService : JobService() {
         private const val JOB_ID = 0
         private const val BOUNDING_BOX = "BOUNDING_BOX"
 
-        fun createNewJob(context: Context, mapTopLeft: Location, mapBottomRight: Location) {
+        fun createNewJob(context: Context, mapTopLeft: LocusLocation, mapBottomRight: LocusLocation) {
             val scheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
 
             val builder = JobInfo.Builder(JOB_ID, ComponentName(context, LiveMapJobService::class.java)).apply {
@@ -74,14 +78,27 @@ class LiveMapJobService : JobService() {
                 setMinimumLatency(0)
                 setExtras(PersistableBundle().apply {
                     putString(BOUNDING_BOX, BoundingBox(
-                            com.arcao.opencaching4locus.model.Location.from(mapTopLeft),
-                            com.arcao.opencaching4locus.model.Location.from(mapBottomRight)
+                            Location.from(mapTopLeft),
+                            Location.from(mapBottomRight)
                     ).toString())
                 })
             }
 
-            scheduler.cancel(JOB_ID)
             scheduler.schedule(builder.build())
+        }
+
+        fun cleanMap(context: Context) {
+            // TODO magic constants
+            val count = 100 * AccountType.values().size / 50
+
+            Observable.range(1, count)
+                    .observeOn(Schedulers.computation())
+                    .map {
+                        PackWaypoints("OC_PACK_$it")
+                    }
+                    .subscribe {
+                        ActionDisplayPoints.sendPackSilent(context, it, false)
+                    }
         }
     }
 }
