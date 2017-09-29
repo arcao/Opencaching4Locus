@@ -7,13 +7,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.SystemClock
-import android.support.annotation.StringRes
 import android.support.v4.app.NotificationCompat
 import android.widget.Toast
 import com.arcao.opencaching4locus.R
+import com.arcao.opencaching4locus.data.okapi.OkApiException
 import com.arcao.opencaching4locus.ui.base.constants.AppConstants
 import com.arcao.opencaching4locus.ui.base.constants.PrefConstants
 import com.arcao.opencaching4locus.ui.base.util.isPeriodicUpdatesEnabled
+import com.arcao.opencaching4locus.ui.error.util.showError
 import com.arcao.opencaching4locus.ui.livemap.LiveMapJobService
 import com.arcao.opencaching4locus.ui.livemap.receiver.LiveMapBroadcastReceiver
 import timber.log.Timber
@@ -56,7 +57,9 @@ class LiveMapNotificationManager @Inject constructor(
             if (value && !context.isPeriodicUpdatesEnabled()) {
                 newState = false
 
-                showError(R.string.error_live_map_periodic_updates)
+                context.showError {
+                    message(R.string.error_live_map_periodic_updates)
+                }
             } else if (value) {
                 Toast.makeText(context, context.getText(R.string.toast_live_map_enabled), Toast.LENGTH_LONG).show()
             } else {
@@ -190,13 +193,13 @@ class LiveMapNotificationManager @Inject constructor(
         return PendingIntent.getBroadcast(context, 0, intent, 0)
     }
 
-    fun showError(throwable: Throwable) {
-        Toast.makeText(context, throwable.message ?: "", Toast.LENGTH_LONG).show()
-    }
+    fun handleError(throwable: Throwable) {
+        context.showError {
+            message(throwable.message ?: "")
+        }
 
-    private fun showError(@StringRes message: Int) {
-        Toast.makeText(context, context.getText(message), Toast.LENGTH_LONG).show()
-        //context.startActivity(ErrorActivity.IntentBuilder(context).message(message).build().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        if (throwable is OkApiException)
+            enable = false
     }
 
     fun showProgress(current: Int, count: Int) {

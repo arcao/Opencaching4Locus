@@ -20,7 +20,7 @@ class LiveMapDownloadTask @Inject constructor(
         private val manager: LiveMapNotificationManager,
         //private val sharedPreferences: SharedPreferences,
         private val services: Map<OkApiServiceType, @JvmSuppressWildcards OkApiService>,
-        private val mapper : GeocacheLocusMapper
+        private val mapper: GeocacheLocusMapper
 ) {
     @WorkerThread
     fun run(boundingBox: BoundingBox) {
@@ -32,14 +32,14 @@ class LiveMapDownloadTask @Inject constructor(
 
         Flowable.fromArray(*AccountType.values())
                 .observeOn(Schedulers.io())
-                .flatMap{ retrieveGeocaches(it, boundingBox) }
+                .flatMap { retrieveGeocaches(it, boundingBox) }
                 .map(mapper::toLiveMapWaypoint)
                 .doOnNext { manager.showProgress(accountTypeIndex++, accountTypeSize) }
                 .buffer(50)
-                .map{createWaypointPack(it, wpIndex++) }
+                .map { createWaypointPack(it, wpIndex++) }
                 .subscribe(
                         { ActionDisplayPoints.sendPackSilent(context, it, false) },
-                        { manager.showError(it)}
+                        { manager.handleError(it) }
                 )
 
     }
@@ -49,9 +49,9 @@ class LiveMapDownloadTask @Inject constructor(
         return service.liveMapGeocaches(boundingBox).observeOn(Schedulers.io())
     }
 
-    private fun createWaypointPack(waypoints: MutableList<locus.api.objects.extra.Waypoint>, index: Int) : PackWaypoints {
+    private fun createWaypointPack(waypoints: MutableList<locus.api.objects.extra.Waypoint>, index: Int): PackWaypoints {
         return PackWaypoints("OC_PACK_$index").apply {
-            waypoints.forEach{
+            waypoints.forEach {
                 addWaypoint(it)
             }
         }

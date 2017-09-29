@@ -18,7 +18,7 @@ import com.arcao.opencaching4locus.data.account.AccountType
 import com.arcao.opencaching4locus.databinding.ActivityAuthenticationBinding
 import com.arcao.opencaching4locus.ui.base.BaseActivity
 import com.arcao.opencaching4locus.ui.base.constants.AppConstants
-import com.arcao.opencaching4locus.ui.base.util.showError
+import com.arcao.opencaching4locus.ui.error.util.showError
 import javax.inject.Inject
 
 @Suppress("NOTHING_TO_INLINE")
@@ -33,6 +33,7 @@ class AuthenticationActivity : BaseActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setResult(Activity.RESULT_CANCELED)
 
         accountType = (intent.getSerializableExtra(EXTRA_ACCOUNT_TYPE) ?: AccountType.OPENCACHING_PL) as AccountType
 
@@ -62,7 +63,13 @@ class AuthenticationActivity : BaseActivity() {
             when (it) {
                 is AuthenticationStarted, AccessTokenRequestSent -> showProgress()
                 is RequestTokenReceived -> openAuthorizeUrl(it.url)
-                is AuthenticationError -> showError(it.throwable)
+                is AuthenticationError -> {
+                    showError {
+                        message(it.throwable.message ?: "")
+                    }
+                    setResult(Activity.RESULT_CANCELED)
+                    finish()
+                }
                 is AuthenticationSuccess -> {
                     setResult(Activity.RESULT_OK)
                     finish()
