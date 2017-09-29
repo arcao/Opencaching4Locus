@@ -8,7 +8,7 @@ import com.arcao.opencaching4locus.data.account.AccountManager
 import com.arcao.opencaching4locus.data.account.AccountType
 import com.arcao.opencaching4locus.ui.base.fragment.BasePreferenceFragment
 import com.arcao.opencaching4locus.ui.base.util.getText
-import com.arcao.opencaching4locus.ui.base.util.requestSignIn
+import com.arcao.opencaching4locus.ui.authentication.util.requestSignIn
 import javax.inject.Inject
 
 class AccountsPreferenceFragment : BasePreferenceFragment() {

@@ -1,4 +1,4 @@
-package com.arcao.opencaching4locus.ui.base.util
+package com.arcao.opencaching4locus.ui.authentication.util
 
 import android.app.Activity
 import com.arcao.opencaching4locus.data.account.AccountManager
