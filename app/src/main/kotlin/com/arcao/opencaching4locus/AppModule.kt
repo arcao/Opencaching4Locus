@@ -7,10 +7,12 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-abstract class AppModule {
+object AppModule {
+    @JvmStatic
     @Provides
     fun providesContext(app: App): Context = app
 
+    @JvmStatic
     @Provides
     fun provideSharedPreferences(context: Context) : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
 }

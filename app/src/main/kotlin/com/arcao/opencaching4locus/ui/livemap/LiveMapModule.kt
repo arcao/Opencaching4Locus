@@ -7,14 +7,16 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-abstract class LiveMapModule {
+object LiveMapModule {
+    @JvmStatic
     @Provides
-    internal fun providesNotificationManager(context: Context) : NotificationManager {
+    fun providesNotificationManager(context: Context) : NotificationManager {
         return context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
+    @JvmStatic
     @Provides
-    internal fun providesAlarmManager(context: Context) : AlarmManager {
+    fun providesAlarmManager(context: Context) : AlarmManager {
         return context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     }
 }

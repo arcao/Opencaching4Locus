@@ -18,8 +18,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 @Module(includes = arrayOf(AccountModule::class, OkApiModule::class))
-class DataModule {
-    @Provides fun provideMoshi() : Moshi {
+object DataModule {
+    @JvmStatic
+    @Provides
+    fun provideMoshi() : Moshi {
         return Moshi.Builder().apply {
             add(KotlinJsonAdapterFactory())
             add(SafeEnumsAdapterFactory())
@@ -28,7 +30,9 @@ class DataModule {
         }.build()
     }
 
-    @Provides fun provideOkHttpClient() : OkHttpClient {
+    @JvmStatic
+    @Provides
+    fun provideOkHttpClient() : OkHttpClient {
         return OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) {
                 addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -36,7 +40,9 @@ class DataModule {
         }.build()
     }
 
-    @Provides fun provideRetrofitBuilder(moshi: Moshi) : Retrofit.Builder {
+    @JvmStatic
+    @Provides
+    fun provideRetrofitBuilder(moshi: Moshi) : Retrofit.Builder {
         return Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2ErrorHandlingCallAdapterFactory.create())
                 .addConverterFactory(ArraySeparatorConverterFactory.create())

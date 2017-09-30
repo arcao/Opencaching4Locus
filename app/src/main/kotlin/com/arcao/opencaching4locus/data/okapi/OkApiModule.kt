@@ -10,7 +10,8 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
 @Module
-class OkApiModule {
+object OkApiModule {
+    @JvmStatic
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_PL)
@@ -18,6 +19,7 @@ class OkApiModule {
         return OkApiServiceImpl(OkApiServiceType.OPENCACHING_PL, account, okHttpClient, retrofitBuilder)
     }
 
+    @JvmStatic
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_DE)
@@ -25,6 +27,7 @@ class OkApiModule {
         return OkApiServiceImpl(OkApiServiceType.OPENCACHING_DE, account, okHttpClient, retrofitBuilder)
     }
 
+    @JvmStatic
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_US)
@@ -32,6 +35,7 @@ class OkApiModule {
         return OkApiServiceImpl(OkApiServiceType.OPENCACHING_US, account, okHttpClient, retrofitBuilder)
     }
 
+    @JvmStatic
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_NL)
@@ -39,6 +43,7 @@ class OkApiModule {
         return OkApiServiceImpl(OkApiServiceType.OPENCACHING_NL, account, okHttpClient, retrofitBuilder)
     }
 
+    @JvmStatic
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_RO)
@@ -46,6 +51,7 @@ class OkApiModule {
         return OkApiServiceImpl(OkApiServiceType.OPENCACHING_RO, account, okHttpClient, retrofitBuilder)
     }
 
+    @JvmStatic
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_UK)
