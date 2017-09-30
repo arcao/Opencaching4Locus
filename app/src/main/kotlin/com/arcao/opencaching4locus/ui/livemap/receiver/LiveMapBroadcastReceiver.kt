@@ -74,7 +74,7 @@ class LiveMapBroadcastReceiver : BroadcastReceiver() {
                     return  // Zoom is too low
                 }
 
-                val l = update.locMapCenter
+                //val l = update.locMapCenter
 
                 // Create job to download caches
                 LiveMapJobService.createNewJob(context, update.mapTopLeft, update.mapBottomRight)
