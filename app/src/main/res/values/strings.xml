@@ -3,6 +3,8 @@
     <string name="app_name">Opencaching4Locus</string>
 
     <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_open_google_play">Open Google Play</string>
 
     <string name="activity_title_sign_in">Sign in</string>
     <string name="activity_title_dashboard">Opencaching4Locus</string>
@@ -12,7 +14,7 @@
     <string name="preference_accounts_logout_summary">Signed in as %s. Tap to sign out.</string>
     <string name="preference_accounts_login_summary">Not signed in. Tap to sign in.</string>
 
-    <string name="error_live_map_periodic_updates">You do not have allowed sending Periodic updates from Locus Map. Please, enable it first in Locus Map under: Settings → Miscellaneous → Enable periodic updates for Add-on.</string>
+    <string name="error_live_map_periodic_updates">You do not have allowed sending Periodic updates from Locus Map which is crucial for Live map feature. Please, enable it first in Locus Map under: Settings → Miscellaneous → Enable periodic updates for Add-on.</string>
     <string name="toast_live_map_enabled">Live map is now enabled.</string>
     <string name="toast_live_map_disabled">Live map is now paused.</string>
 
@@ -28,4 +30,7 @@
 
     <string name="dashboard_live_map">Live map</string>
     <string name="dashboard_settings">Settings</string>
+
+    <string name="error_locus_not_found">Locus Map application was not found, but Opencaching4Locus requires it to work properly. Please install Locus Map.</string>
+    <string name="error_old_locus_map">Your installed Locus Map version is too old. Opencaching4Locus require version %s or greater to work properly.</string>
 </resources>

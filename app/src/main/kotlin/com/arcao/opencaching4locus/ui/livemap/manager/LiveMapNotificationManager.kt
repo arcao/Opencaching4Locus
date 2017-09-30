@@ -10,10 +10,11 @@ import android.os.SystemClock
 import android.support.v4.app.NotificationCompat
 import android.widget.Toast
 import com.arcao.opencaching4locus.R
+import com.arcao.opencaching4locus.data.locusmap.util.checkLocusMap
+import com.arcao.opencaching4locus.data.locusmap.util.isPeriodicUpdatesEnabled
 import com.arcao.opencaching4locus.data.okapi.OkApiException
 import com.arcao.opencaching4locus.ui.base.constants.AppConstants
 import com.arcao.opencaching4locus.ui.base.constants.PrefConstants
-import com.arcao.opencaching4locus.ui.base.util.isPeriodicUpdatesEnabled
 import com.arcao.opencaching4locus.ui.error.util.showError
 import com.arcao.opencaching4locus.ui.livemap.LiveMapJobService
 import com.arcao.opencaching4locus.ui.livemap.receiver.LiveMapBroadcastReceiver
@@ -49,18 +50,22 @@ class LiveMapNotificationManager @Inject constructor(
         set(value) {
             var newState = value
 
+            val locusInstalled = context.checkLocusMap()
+            if (!locusInstalled)
+                newState = false
+
             // hide visible geocaches when live map is disabling
-            if (!value && enable) {
+            if (!newState && enable && locusInstalled) {
                 LiveMapJobService.cleanMap(context)
             }
 
-            if (value && !context.isPeriodicUpdatesEnabled()) {
+            if (newState && !context.isPeriodicUpdatesEnabled()) {
                 newState = false
 
                 context.showError {
                     message(R.string.error_live_map_periodic_updates)
                 }
-            } else if (value) {
+            } else if (newState) {
                 Toast.makeText(context, context.getText(R.string.toast_live_map_enabled), Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(context, context.getText(R.string.toast_live_map_disabled), Toast.LENGTH_LONG).show()

@@ -3,7 +3,6 @@ package com.arcao.opencaching4locus.ui.livemap.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.arcao.opencaching4locus.ui.base.util.checkLocusMap
 import com.arcao.opencaching4locus.ui.livemap.LiveMapJobService
 import com.arcao.opencaching4locus.ui.livemap.manager.LiveMapNotificationManager
 import dagger.android.AndroidInjection
@@ -26,13 +25,6 @@ class LiveMapBroadcastReceiver : BroadcastReceiver() {
             return
 
         if (!notificationManager.enable) {
-            return
-        }
-
-        // Test if correct Locus version is installed
-        if (!context.checkLocusMap()) {
-            // disable live map
-            notificationManager.enable = false
             return
         }
 
