@@ -170,7 +170,7 @@ class LiveMapNotificationManager @Inject constructor(
                 setContentTitle(context.getText(R.string.notify_live_map))
                 setContentText(state)
             } else {
-                setSubText(context.getText(R.string.menu_live_map))
+                setSubText(context.getText(R.string.dashboard_live_map))
                 setContentTitle(state)
             }
             priority = NotificationCompat.PRIORITY_MAX // always show button

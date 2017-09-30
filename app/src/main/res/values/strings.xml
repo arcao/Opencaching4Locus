@@ -26,5 +26,6 @@
     <string name="notify_live_map_action_enable">Enable</string>
     <string name="notify_live_map">Opencaching4Locus live map</string>
 
-    <string name="menu_live_map">Live map</string>
+    <string name="dashboard_live_map">Live map</string>
+    <string name="dashboard_settings">Settings</string>
 </resources>

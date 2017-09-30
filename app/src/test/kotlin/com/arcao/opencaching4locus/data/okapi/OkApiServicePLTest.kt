@@ -15,18 +15,15 @@ class OkApiServicePLTest {
 
     @Before
     fun setup() {
-        val okApiModule = OkApiModule()
-
-        val dataModule = DataModule()
-        val okHttpClient = dataModule.provideOkHttpClient()
-        val moshi = dataModule.provideMoshi()
-        val retrofitBuilder = dataModule.provideRetrofitBuilder(moshi)
+        val okHttpClient = DataModule.provideOkHttpClient()
+        val moshi = DataModule.provideMoshi()
+        val retrofitBuilder = DataModule.provideRetrofitBuilder(moshi)
 
         val account = mock<Account> {
             on { authenticated } doReturn (false)
         }
 
-        service = okApiModule.provideOkApiServicesPL(account, okHttpClient, retrofitBuilder)
+        service = OkApiModule.provideOkApiServicesPL(account, okHttpClient, retrofitBuilder)
     }
 
     @Test

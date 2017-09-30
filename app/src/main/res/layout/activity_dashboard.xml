@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.arcao.opencaching4locus.ui.dashboard.DashboardViewModel" />
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteY="81dp"
+        tools:layout_editor_absoluteX="0dp">
+
+        <com.arcao.opencaching4locus.ui.dashboard.widget.DashboardButton
+            android:id="@+id/dashboardButtonLiveMap"
+            android:text="@string/dashboard_live_map"
+            android:drawableTop="@drawable/ic_dashboard_live_map"
+            android:onClick="@{() -> viewModel.toggleLiveMap()}"
+            app:toggleable="true"
+            style="@style/Widget.AppTheme.DashboardButton"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            android:checked="false"
+            />
+        <com.arcao.opencaching4locus.ui.dashboard.widget.DashboardButton
+            android:id="@+id/dashboardButtonSettings"
+            android:text="@string/dashboard_settings"
+            android:drawableTop="@drawable/ic_settings_black_24dp"
+            android:onClick="@{() -> viewModel.showSettings()}"
+            style="@style/Widget.AppTheme.DashboardButton"
+            app:layout_constraintStart_toEndOf="@+id/dashboardButtonLiveMap"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            />
+    </android.support.constraint.ConstraintLayout>
+</layout>
