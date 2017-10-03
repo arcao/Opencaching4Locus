@@ -32,6 +32,7 @@ class LiveMapDownloadTask @Inject constructor(
 
         Flowable.fromArray(*AccountType.values())
                 .observeOn(Schedulers.io())
+                .filter { it.toServiceType().consumerKey.isNotEmpty() }
                 .flatMap { retrieveGeocaches(it, boundingBox) }
                 .map(mapper::toLiveMapWaypoint)
                 .doOnNext { manager.showProgress(accountTypeIndex++, accountTypeSize) }
