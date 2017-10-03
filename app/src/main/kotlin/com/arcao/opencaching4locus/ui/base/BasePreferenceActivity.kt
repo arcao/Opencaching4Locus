@@ -21,11 +21,18 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.preference.PreferenceActivity
 import android.support.annotation.LayoutRes
+import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatDelegate
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasFragmentInjector
+import dagger.android.support.HasSupportFragmentInjector
+import javax.inject.Inject
 
 /**
  * A [PreferenceActivity] which implements and proxies the necessary calls
@@ -34,10 +41,18 @@ import android.view.ViewGroup
  * This technique can be used with an [Activity] class, not just
  * [PreferenceActivity].
  */
-abstract class BasePreferenceActivity : PreferenceActivity() {
+abstract class BasePreferenceActivity : PreferenceActivity(), HasFragmentInjector, HasSupportFragmentInjector {
     private lateinit var delegate: AppCompatDelegate
 
+    @Inject internal lateinit var supportFragmentInjector: DispatchingAndroidInjector<Fragment>
+    @Inject internal lateinit var frameworkFragmentInjector: DispatchingAndroidInjector<android.app.Fragment>
+
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> = supportFragmentInjector
+    override fun fragmentInjector(): AndroidInjector<android.app.Fragment> = frameworkFragmentInjector
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
+
         delegate = AppCompatDelegate.create(this, null)
         delegate.installViewFactory()
         delegate.onCreate(savedInstanceState)

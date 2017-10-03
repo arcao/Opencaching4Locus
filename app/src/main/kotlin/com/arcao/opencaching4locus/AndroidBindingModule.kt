@@ -8,6 +8,8 @@ import com.arcao.opencaching4locus.ui.dashboard.DashboardActivity
 import com.arcao.opencaching4locus.ui.dashboard.DashboardModule
 import com.arcao.opencaching4locus.ui.livemap.LiveMapJobService
 import com.arcao.opencaching4locus.ui.livemap.LiveMapModule
+import com.arcao.opencaching4locus.ui.settings.SettingsActivity
+import com.arcao.opencaching4locus.ui.settings.SettingsModule
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -23,6 +25,9 @@ abstract class AndroidBindingModule {
 
     @ContributesAndroidInjector(modules = arrayOf(DashboardModule::class))
     abstract fun dashboardActivity(): DashboardActivity
+
+    @ContributesAndroidInjector(modules = arrayOf(SettingsModule::class))
+    abstract fun settingsActivity(): SettingsActivity
 
     @ContributesAndroidInjector(modules = arrayOf(AuthenticationModule::class))
     abstract fun authenticationActivity(): AuthenticationActivity
