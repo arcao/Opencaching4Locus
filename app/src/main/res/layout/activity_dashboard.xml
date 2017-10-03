@@ -12,7 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteY="81dp"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:context=".ui.dashboard.DashboardActivity">
+
+        <include
+            layout="@layout/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/toolbar"
+            />
 
         <com.arcao.opencaching4locus.ui.dashboard.widget.DashboardButton
             android:id="@+id/dashboardButtonLiveMap"
@@ -23,9 +32,9 @@
             style="@style/Widget.AppTheme.DashboardButton"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
             android:checked="false"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             />
         <com.arcao.opencaching4locus.ui.dashboard.widget.DashboardButton
             android:id="@+id/dashboardButtonSettings"
@@ -35,8 +44,8 @@
             style="@style/Widget.AppTheme.DashboardButton"
             app:layout_constraintStart_toEndOf="@+id/dashboardButtonLiveMap"
             android:layout_marginStart="8dp"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>

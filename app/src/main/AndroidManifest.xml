@@ -45,8 +45,10 @@
 
         <activity
             android:name=".ui.dashboard.DashboardActivity"
-            android:exported="true">
-            <intent-filter android:label="@string/activity_title_dashboard">
+            android:exported="true"
+            android:theme="@style/AppTheme.Dashboard"
+            android:label="@string/activity_title_dashboard">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
@@ -54,12 +56,7 @@
 
         <activity
             android:name=".ui.authentication.AuthenticationActivity"
-            android:label="@string/activity_title_sign_in">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+            android:label="@string/activity_title_sign_in"/>
 
         <activity
             android:name=".ui.settings.SettingsActivity"

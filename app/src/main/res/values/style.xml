@@ -2,11 +2,9 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme" parent="Theme.AppCompat.Light">
-
         <item name="colorPrimary">@android:color/holo_green_light</item>
         <item name="colorPrimaryDark">@android:color/holo_green_dark</item>
         <item name="colorAccent">@android:color/holo_purple</item>
-        <item name="dashboardButtonStyle">@style/Widget.AppTheme.DashboardButton</item>
     </style>
 
     <style name="AppTheme.Translucent">
@@ -20,6 +18,16 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="AppTheme.Dashboard" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@android:color/holo_green_light</item>
+        <item name="colorPrimaryDark">@android:color/holo_green_dark</item>
+        <item name="colorAccent">@android:color/holo_purple</item>
+        <item name="dashboardButtonStyle">@style/Widget.AppTheme.DashboardButton</item>
+
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 
     <style name="Widget"/>
