@@ -38,7 +38,7 @@ class SettingsActivity : BasePreferenceActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-    // Respond to the action bar's Up/Home button
+        // Respond to the action bar's Up/Home button
         android.R.id.home -> {
             onBackPressed()
             true
@@ -55,6 +55,10 @@ class SettingsActivity : BasePreferenceActivity() {
         headers.map { header ->
             Preference(this).apply {
                 setTitle(header.titleRes)
+
+                if (header.iconRes != 0)
+                    setIcon(header.iconRes)
+
                 // HACK: with setFragment does not work click
                 intent = onBuildStartFragmentIntent(header.fragment, null, header.titleRes, 0)
             }
