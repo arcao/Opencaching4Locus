@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 dependencies {
     def supportVer = '26.1.0'
-    def constraintLayoutVer = '1.1.0-beta1'
+    def constraintLayoutVer = '1.1.0-beta2'
     def locusApiVer = '0.2.11'
     def timberVer = '4.5.1'
     def scribeJavaVer = '4.2.0'
@@ -15,11 +15,11 @@ dependencies {
     def moshiVer = '1.5.0'
     def lifecycleVer = "1.0.0-beta1"
     def daggerVer = '2.11'
-    def rxJavaVer = '2.1.4'
+    def rxJavaVer = '2.1.5-RC4'
     def rxAndroidVer = '2.0.1'
     def rxKotlinVer = '2.1.0'
     def mockitoKotlinVer = "1.5.0"
-    def kluentVer = '1.29'
+    def kluentVer = '1.30'
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVer"
@@ -85,7 +85,7 @@ dependencies {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    buildToolsVersion '26.0.2'
 
     dataBinding {
         enabled = true
