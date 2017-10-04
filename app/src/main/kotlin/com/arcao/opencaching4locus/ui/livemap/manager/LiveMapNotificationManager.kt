@@ -49,6 +49,7 @@ class LiveMapNotificationManager @Inject constructor(
         get() = sharedPreferences.getBoolean(PrefConstants.LIVE_MAP, PrefConstants.LIVE_MAP_DEFAULT)
         set(value) {
             var newState = value
+            sharedPreferences.edit().putBoolean(PrefConstants.LIVE_MAP, newState).apply()
 
             val locusInstalled = context.checkLocusMap()
             if (!locusInstalled)
