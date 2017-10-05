@@ -60,6 +60,7 @@ class LiveMapJobService : JobService() {
         return subject
                 .observeOn(Schedulers.io())
                 .buffer(300, TimeUnit.MICROSECONDS)
+                .filter { it.isNotEmpty() }
                 .map {
                     for (i in 0 until it.size - 1) filtered(it[i])
                     it.last()
