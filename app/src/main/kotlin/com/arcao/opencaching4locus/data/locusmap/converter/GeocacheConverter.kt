@@ -65,12 +65,12 @@ class GeocacheConverter @Inject constructor(
             }
         }
 
-        val location = Location("OC").apply {
+        val location = Location(geocache.code).apply {
             latitude = geocache.location.latitude
             longitude = geocache.location.longitude
         }
 
-        return Waypoint(geocache.code, location).apply {
+        return Waypoint(geocache.name, location).apply {
             gcData = geocachingData
         }
     }
