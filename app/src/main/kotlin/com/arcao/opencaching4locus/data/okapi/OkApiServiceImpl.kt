@@ -96,9 +96,9 @@ class OkApiServiceImpl(private val serviceType: OkApiServiceType, private val ac
                                 Flowable.fromIterable(
                                         apiInstance.geocaches(
                                                 codes.joinToString("|"),
-                                                fields = Geocache.FORMAT_LIVEMAP.joinToString("|"),
+                                                fields = Geocache.FORMAT_FULL.joinToString("|"),
                                                 logsPerCache = logsPerCache,
-                                                logFields = Log.FORMAT_LIVEMAP.joinToString("|")
+                                                logFields = Log.FORMAT_FULL.joinToString("|")
                                         ).blockingGet().values
                                 )
                             }
