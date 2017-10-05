@@ -9,15 +9,12 @@ import com.arcao.opencaching4locus.ui.dashboard.DashboardModule
 import com.arcao.opencaching4locus.ui.error.ErrorActivity
 import com.arcao.opencaching4locus.ui.livemap.LiveMapJobService
 import com.arcao.opencaching4locus.ui.livemap.LiveMapModule
+import com.arcao.opencaching4locus.ui.livemap.receiver.LiveMapBroadcastReceiver
 import com.arcao.opencaching4locus.ui.settings.SettingsActivity
 import com.arcao.opencaching4locus.ui.settings.SettingsModule
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-
-
-
-
 
 @Module
 abstract class AndroidBindingModule {
@@ -32,6 +29,9 @@ abstract class AndroidBindingModule {
 
     @ContributesAndroidInjector
     abstract fun errorActivity(): ErrorActivity
+
+    @ContributesAndroidInjector(modules = arrayOf(LiveMapModule::class))
+    abstract fun liveMapBroadcastReceiver(): LiveMapBroadcastReceiver
 
     @ContributesAndroidInjector(modules = arrayOf(LiveMapModule::class))
     abstract fun liveMapJobService(): LiveMapJobService
