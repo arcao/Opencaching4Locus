@@ -2,6 +2,7 @@ package com.arcao.opencaching4locus.ui.livemap.task
 
 import android.content.Context
 import android.support.annotation.WorkerThread
+import com.arcao.opencaching4locus.data.account.AccountManager
 import com.arcao.opencaching4locus.data.account.AccountType
 import com.arcao.opencaching4locus.data.locusmap.mapper.GeocacheLocusMapper
 import com.arcao.opencaching4locus.data.okapi.OkApiService
@@ -20,6 +21,7 @@ class LiveMapDownloadTask @Inject constructor(
         private val manager: LiveMapNotificationManager,
         //private val sharedPreferences: SharedPreferences,
         private val services: Map<OkApiServiceType, @JvmSuppressWildcards OkApiService>,
+        private val accountManager: AccountManager,
         private val mapper: GeocacheLocusMapper
 ) {
     @WorkerThread
@@ -32,6 +34,7 @@ class LiveMapDownloadTask @Inject constructor(
 
         Flowable.fromArray(*AccountType.values())
                 .observeOn(Schedulers.io())
+                .filter { accountManager.getAccount(it).liveMapEnabled }
                 .filter { it.toServiceType().consumerKey.isNotEmpty() }
                 .flatMap { retrieveGeocaches(it, boundingBox) }
                 .map(mapper::toLiveMapWaypoint)
