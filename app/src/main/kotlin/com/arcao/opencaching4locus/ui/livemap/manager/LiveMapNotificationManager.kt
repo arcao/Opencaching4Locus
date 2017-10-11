@@ -170,7 +170,7 @@ class LiveMapNotificationManager @Inject constructor(
 //            val pendingIntent = PendingIntent.getActivity(context, 0,
 //                    SettingsActivity.createIntent(context, LiveMapPreferenceFragment::class.java),
 //                    PendingIntent.FLAG_UPDATE_CURRENT)
-//            addAction(R.drawable.ic_settings_black_24dp, context.getText(R.string.notify_live_map_action_settings), pendingIntent)
+//            addAction(R.drawable.ic_settings_black_48dp, context.getText(R.string.notify_live_map_action_settings), pendingIntent)
 
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 setContentTitle(context.getText(R.string.notify_live_map))

@@ -34,5 +34,5 @@
     <string name="error_locus_not_found">Locus Map application was not found, but Opencaching4Locus requires it to work properly. Please install Locus Map.</string>
     <string name="error_old_locus_map">Your installed Locus Map version is too old. Opencaching4Locus require version %s or greater to work properly.</string>
     <string name="preference_live_map">Live map</string>
-    <string name="preference_live_map_services">Live map services</string>
+    <string name="preference_live_map_accounts">Accounts</string>
 </resources>

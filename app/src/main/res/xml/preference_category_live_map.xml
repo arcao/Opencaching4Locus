@@ -2,7 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/preference_live_map">
     <Preference
-        android:key="live_map_services"
-        android:title="@string/preference_live_map_services"
-        android:fragment="com.arcao.opencaching4locus.ui.settings.fragment.LiveMapServicesPreferenceFragment"/>
+        android:title="@string/preference_live_map_accounts"
+        android:fragment="com.arcao.opencaching4locus.ui.settings.fragment.LiveMapAccountsPreferenceFragment"/>
 </PreferenceScreen>

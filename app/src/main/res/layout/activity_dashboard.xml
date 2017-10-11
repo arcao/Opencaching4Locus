@@ -26,7 +26,7 @@
         <com.arcao.opencaching4locus.ui.dashboard.widget.DashboardButton
             android:id="@+id/dashboardButtonLiveMap"
             android:text="@string/dashboard_live_map"
-            android:drawableTop="@drawable/ic_dashboard_live_map"
+            android:drawableTop="@drawable/ic_oc_map_black_48dp"
             android:onClick="@{() -> viewModel.toggleLiveMap()}"
             app:toggleable="true"
             style="@style/Widget.AppTheme.DashboardButton"
@@ -39,7 +39,7 @@
         <com.arcao.opencaching4locus.ui.dashboard.widget.DashboardButton
             android:id="@+id/dashboardButtonSettings"
             android:text="@string/dashboard_settings"
-            android:drawableTop="@drawable/ic_settings_black_24dp"
+            android:drawableTop="@drawable/ic_settings_black_48dp"
             android:onClick="@{() -> viewModel.showSettings()}"
             style="@style/Widget.AppTheme.DashboardButton"
             app:layout_constraintStart_toEndOf="@+id/dashboardButtonLiveMap"

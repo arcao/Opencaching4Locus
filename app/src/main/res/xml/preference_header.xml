@@ -5,4 +5,8 @@
         android:fragment="com.arcao.opencaching4locus.ui.settings.fragment.AccountsPreferenceFragment"
         android:title="@string/preference_accounts"
         android:icon="@drawable/ic_accounts_black_24dp"/>
+    <header
+        android:fragment="com.arcao.opencaching4locus.ui.settings.fragment.LiveMapPreferenceFragment"
+        android:title="@string/preference_live_map"
+        android:icon="@drawable/ic_oc_map_black_24dp"/>
 </preference-headers>
