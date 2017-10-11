@@ -8,10 +8,12 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import javax.inject.Singleton
 
 @Module
 object OkApiModule {
     @JvmStatic
+    @Singleton
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_PL)
@@ -20,6 +22,7 @@ object OkApiModule {
     }
 
     @JvmStatic
+    @Singleton
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_DE)
@@ -28,6 +31,7 @@ object OkApiModule {
     }
 
     @JvmStatic
+    @Singleton
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_US)
@@ -36,6 +40,7 @@ object OkApiModule {
     }
 
     @JvmStatic
+    @Singleton
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_NL)
@@ -44,6 +49,7 @@ object OkApiModule {
     }
 
     @JvmStatic
+    @Singleton
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_RO)
@@ -52,6 +58,7 @@ object OkApiModule {
     }
 
     @JvmStatic
+    @Singleton
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_UK)

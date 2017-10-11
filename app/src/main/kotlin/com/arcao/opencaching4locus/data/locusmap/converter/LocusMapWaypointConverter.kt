@@ -4,7 +4,9 @@ import com.arcao.opencaching4locus.model.enums.WaypointType
 import com.arcao.opencaching4locus.model.response.Waypoint
 import locus.api.objects.geocaching.GeocachingWaypoint
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class LocusMapWaypointConverter @Inject constructor() {
     fun convert(waypoint: Waypoint): GeocachingWaypoint {
         return GeocachingWaypoint().apply {

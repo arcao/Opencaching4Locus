@@ -6,7 +6,9 @@ import locus.api.objects.extra.Location
 import locus.api.objects.extra.Waypoint
 import locus.api.objects.geocaching.GeocachingData
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class GeocacheConverter @Inject constructor(
         private val geocacheTypeConverter: LocusMapGeocacheTypeConverter,
         private val containerConverter: LocusMapContainerConverter,

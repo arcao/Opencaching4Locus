@@ -16,10 +16,12 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Singleton
 
 @Module(includes = arrayOf(AccountModule::class, OkApiModule::class))
 object DataModule {
     @JvmStatic
+    @Singleton
     @Provides
     fun provideMoshi() : Moshi {
         return Moshi.Builder().apply {
@@ -31,6 +33,7 @@ object DataModule {
     }
 
     @JvmStatic
+    @Singleton
     @Provides
     fun provideOkHttpClient() : OkHttpClient {
         return OkHttpClient.Builder().apply {
@@ -41,6 +44,7 @@ object DataModule {
     }
 
     @JvmStatic
+    @Singleton
     @Provides
     fun provideRetrofitBuilder(moshi: Moshi) : Retrofit.Builder {
         return Retrofit.Builder()

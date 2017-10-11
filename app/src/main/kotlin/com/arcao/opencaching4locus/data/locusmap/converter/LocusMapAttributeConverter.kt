@@ -2,7 +2,9 @@ package com.arcao.opencaching4locus.data.locusmap.converter
 
 import locus.api.objects.geocaching.GeocachingAttribute
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class LocusMapAttributeConverter @Inject constructor() {
     private val cache = HashMap<String, GeocachingAttribute>()
 
