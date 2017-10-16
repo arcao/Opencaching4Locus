@@ -4,9 +4,8 @@ import com.arcao.opencaching4locus.data.DataModule
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
-import javax.inject.Singleton
 
-@Singleton
+@PerApp
 @Component(modules = arrayOf(AndroidSupportInjectionModule::class, DataModule::class, AppModule::class, AndroidBindingModule::class))
 interface AppComponent : AndroidInjector<App> {
     @Component.Builder

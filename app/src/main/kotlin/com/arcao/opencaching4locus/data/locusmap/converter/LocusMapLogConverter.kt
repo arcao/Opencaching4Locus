@@ -1,12 +1,13 @@
 package com.arcao.opencaching4locus.data.locusmap.converter
 
+import com.arcao.opencaching4locus.PerApp
 import com.arcao.opencaching4locus.model.enums.LogType
 import com.arcao.opencaching4locus.model.response.Log
 import locus.api.objects.geocaching.GeocachingLog
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
+@PerApp
 class LocusMapLogConverter @Inject constructor(
         private val imageConverter: LocusMapImageConverter
 ) {

@@ -1,11 +1,11 @@
 package com.arcao.opencaching4locus.data.locusmap.converter
 
+import com.arcao.opencaching4locus.PerApp
 import com.arcao.opencaching4locus.model.enums.GeocacheSize
 import locus.api.objects.geocaching.GeocachingData
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@PerApp
 class LocusMapContainerConverter @Inject constructor() {
     fun convert(size: GeocacheSize?): Int = when(size) {
         GeocacheSize.NANO, GeocacheSize.MICRO -> GeocachingData.CACHE_SIZE_MICRO

@@ -1,21 +1,21 @@
 package com.arcao.opencaching4locus.data.account
 
 import android.content.Context
+import com.arcao.opencaching4locus.PerApp
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 object AccountModule {
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     fun providesAccountManager(context: Context): AccountManager {
         return AccountManager.get(context)
     }
 
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     @ForAccountType(AccountType.OPENCACHING_PL)
     fun providesAccountPL(accountManager: AccountManager): Account {
@@ -23,7 +23,7 @@ object AccountModule {
     }
 
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     @ForAccountType(AccountType.OPENCACHING_DE)
     fun providesAccountDE(accountManager: AccountManager): Account {
@@ -31,7 +31,7 @@ object AccountModule {
     }
 
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     @ForAccountType(AccountType.OPENCACHING_US)
     fun providesAccountUS(accountManager: AccountManager): Account {
@@ -39,7 +39,7 @@ object AccountModule {
     }
 
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     @ForAccountType(AccountType.OPENCACHING_NL)
     fun providesAccountNL(accountManager: AccountManager): Account {
@@ -47,7 +47,7 @@ object AccountModule {
     }
 
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     @ForAccountType(AccountType.OPENCACHING_RO)
     fun providesAccountRO(accountManager: AccountManager): Account {
@@ -55,7 +55,7 @@ object AccountModule {
     }
 
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     @ForAccountType(AccountType.OPENCACHING_UK)
     fun providesAccountUK(accountManager: AccountManager): Account {

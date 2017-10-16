@@ -1,14 +1,14 @@
 package com.arcao.opencaching4locus.data.locusmap.converter
 
+import com.arcao.opencaching4locus.PerApp
 import com.arcao.opencaching4locus.model.enums.GeocacheStatus
 import com.arcao.opencaching4locus.model.response.Geocache
 import locus.api.objects.extra.Location
 import locus.api.objects.extra.Waypoint
 import locus.api.objects.geocaching.GeocachingData
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@PerApp
 class GeocacheConverter @Inject constructor(
         private val geocacheTypeConverter: LocusMapGeocacheTypeConverter,
         private val containerConverter: LocusMapContainerConverter,

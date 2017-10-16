@@ -1,6 +1,7 @@
 package com.arcao.opencaching4locus.data
 
 import com.arcao.opencaching4locus.BuildConfig
+import com.arcao.opencaching4locus.PerApp
 import com.arcao.opencaching4locus.data.account.AccountModule
 import com.arcao.opencaching4locus.data.moshi.adapter.DateAdapter
 import com.arcao.opencaching4locus.data.moshi.adapter.LocationAdapter
@@ -16,12 +17,11 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @Module(includes = arrayOf(AccountModule::class, OkApiModule::class))
 object DataModule {
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     fun provideMoshi() : Moshi {
         return Moshi.Builder().apply {
@@ -33,7 +33,7 @@ object DataModule {
     }
 
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     fun provideOkHttpClient() : OkHttpClient {
         return OkHttpClient.Builder().apply {
@@ -44,7 +44,7 @@ object DataModule {
     }
 
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     fun provideRetrofitBuilder(moshi: Moshi) : Retrofit.Builder {
         return Retrofit.Builder()

@@ -1,10 +1,10 @@
 package com.arcao.opencaching4locus.data.locusmap.converter
 
+import com.arcao.opencaching4locus.PerApp
 import locus.api.objects.geocaching.GeocachingData
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@PerApp
 class LocusMapGeocacheTypeConverter @Inject constructor() {
     fun convert(type: String): Int = when(type) {
         "Traditional" -> GeocachingData.CACHE_TYPE_TRADITIONAL

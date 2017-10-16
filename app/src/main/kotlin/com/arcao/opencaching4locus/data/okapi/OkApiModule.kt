@@ -1,5 +1,6 @@
 package com.arcao.opencaching4locus.data.okapi
 
+import com.arcao.opencaching4locus.PerApp
 import com.arcao.opencaching4locus.data.account.Account
 import com.arcao.opencaching4locus.data.account.AccountType
 import com.arcao.opencaching4locus.data.account.ForAccountType
@@ -8,12 +9,11 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import javax.inject.Singleton
 
 @Module
 object OkApiModule {
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_PL)
@@ -22,7 +22,7 @@ object OkApiModule {
     }
 
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_DE)
@@ -31,7 +31,7 @@ object OkApiModule {
     }
 
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_US)
@@ -40,7 +40,7 @@ object OkApiModule {
     }
 
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_NL)
@@ -49,7 +49,7 @@ object OkApiModule {
     }
 
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_RO)
@@ -58,7 +58,7 @@ object OkApiModule {
     }
 
     @JvmStatic
-    @Singleton
+    @PerApp
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_UK)
