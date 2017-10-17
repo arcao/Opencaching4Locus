@@ -11,9 +11,7 @@ annotation class ArraySeparator
 
 class ArraySeparatorConverterFactory : Factory() {
     companion object {
-        fun create() : Factory {
-            return ArraySeparatorConverterFactory()
-        }
+        fun create() : Factory = ArraySeparatorConverterFactory()
     }
 
     override fun stringConverter(type: Type?, annotations: Array<out Annotation>?, retrofit: Retrofit?): Converter<*, String>? {
@@ -32,12 +30,10 @@ class ArraySeparatorConverterFactory : Factory() {
             val INSTANCE = ArraySeparatorConverter()
         }
 
-        override fun convert(value: Any): String {
-            return when(value) {
-                is Array<*> -> value.joinToString("|")
-                is Iterable<*> ->value.joinToString("|")
-                else -> value.toString()
-            }
+        override fun convert(value: Any): String = when(value) {
+            is Array<*> -> value.joinToString("|")
+            is Iterable<*> ->value.joinToString("|")
+            else -> value.toString()
         }
     }
 }

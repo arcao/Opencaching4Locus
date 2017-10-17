@@ -53,11 +53,9 @@ class LiveMapDownloadTask @Inject constructor(
         return service.liveMapGeocaches(boundingBox).observeOn(Schedulers.io())
     }
 
-    private fun createWaypointPack(waypoints: MutableList<locus.api.objects.extra.Waypoint>, index: Int): PackWaypoints {
-        return PackWaypoints("OC_PACK_$index").apply {
-            waypoints.forEach {
-                addWaypoint(it)
-            }
+    private fun createWaypointPack(waypoints: MutableList<locus.api.objects.extra.Waypoint>, index: Int): PackWaypoints = PackWaypoints("OC_PACK_$index").apply {
+        waypoints.forEach {
+            addWaypoint(it)
         }
     }
 }

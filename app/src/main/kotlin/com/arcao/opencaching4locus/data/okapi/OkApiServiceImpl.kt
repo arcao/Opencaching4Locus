@@ -38,79 +38,71 @@ class OkApiServiceImpl(private val serviceType: OkApiServiceType, private val ac
     override fun serviceType(): OkApiServiceType = serviceType
     override fun authenticated(): Boolean = account.authenticated
 
-    override fun geocache(code: String, logsPerCache: Int): Single<Geocache> {
-        return apiInstance.geocache(
-                cacheCode = code,
-                fields = Geocache.FORMAT_FULL.joinToString("|"),
-                logFields = Log.FORMAT_FULL.joinToString("|"),
-                logsPerCache = logsPerCache
-        ).observeOn(Schedulers.io())
-    }
+    override fun geocache(code: String, logsPerCache: Int): Single<Geocache> = apiInstance.geocache(
+            cacheCode = code,
+            fields = Geocache.FORMAT_FULL.joinToString("|"),
+            logFields = Log.FORMAT_FULL.joinToString("|"),
+            logsPerCache = logsPerCache
+    ).observeOn(Schedulers.io())
 
-    override fun nearestGeocaches(location: Location, limit: Int, type: Array<String>?, difficulty: FloatRange?, terrain: FloatRange?, size: EnumSet<GeocacheSize>?, foundStatus: String?, ignoredStatus: String?, excludeMyOwn: Boolean?, logsPerCache: Int): Flowable<Geocache> {
-        return apiInstance.nearest(
-                location = location,
-                limit = limit,
-                type = type?.joinToString("|"),
-                difficulty = difficulty,
-                terrain = terrain,
-                size = size?.joinToString("|"),
-                foundStatus = foundStatus,
-                ignoredStatus = ignoredStatus,
-                excludeMyOwn = excludeMyOwn
-        ).subscribeOn(Schedulers.io())
-                .toFlowable()
-                .flatMap { (results) ->
-                    Flowable.fromIterable(results)
-                            .buffer(GEOCACHES_PER_REQUEST)
-                            .flatMap { codes ->
-                                Flowable.fromIterable(
-                                        apiInstance.geocaches(
-                                                codes.joinToString("|"),
-                                                fields = Geocache.FORMAT_FULL.joinToString("|"),
-                                                logsPerCache = logsPerCache,
-                                                logFields = Log.FORMAT_FULL.joinToString("|")
-                                        ).blockingGet().values
-                                )
-                            }
-                }
-    }
+    override fun nearestGeocaches(location: Location, limit: Int, type: Array<String>?, difficulty: FloatRange?, terrain: FloatRange?, size: EnumSet<GeocacheSize>?, foundStatus: String?, ignoredStatus: String?, excludeMyOwn: Boolean?, logsPerCache: Int): Flowable<Geocache> = apiInstance.nearest(
+            location = location,
+            limit = limit,
+            type = type?.joinToString("|"),
+            difficulty = difficulty,
+            terrain = terrain,
+            size = size?.joinToString("|"),
+            foundStatus = foundStatus,
+            ignoredStatus = ignoredStatus,
+            excludeMyOwn = excludeMyOwn
+    ).subscribeOn(Schedulers.io())
+            .toFlowable()
+            .flatMap { (results) ->
+                Flowable.fromIterable(results)
+                        .buffer(GEOCACHES_PER_REQUEST)
+                        .flatMap { codes ->
+                            Flowable.fromIterable(
+                                    apiInstance.geocaches(
+                                            codes.joinToString("|"),
+                                            fields = Geocache.FORMAT_FULL.joinToString("|"),
+                                            logsPerCache = logsPerCache,
+                                            logFields = Log.FORMAT_FULL.joinToString("|")
+                                    ).blockingGet().values
+                            )
+                        }
+            }
 
-    override fun liveMapGeocaches(bbox: BoundingBox, limit: Int, type: Array<String>?, difficulty: FloatRange?, terrain: FloatRange?, size: EnumSet<GeocacheSize>?, foundStatus: String?, ignoredStatus: String?, excludeMyOwn: Boolean?, logsPerCache: Int): Flowable<Geocache> {
-        return apiInstance.bbox(
-                bbox = bbox,
-                limit = limit,
-                type = type?.joinToString("|"),
-                difficulty = difficulty,
-                terrain = terrain,
-                size = size?.joinToString("|"),
-                foundStatus = foundStatus,
-                ignoredStatus = ignoredStatus,
-                excludeMyOwn = excludeMyOwn
-        ).subscribeOn(Schedulers.io())
-                .toFlowable()
-                .flatMap { (results) ->
-                    Flowable.fromIterable(results)
-                            .buffer(GEOCACHES_PER_REQUEST)
-                            .flatMap { codes ->
-                                Flowable.fromIterable(
-                                        apiInstance.geocaches(
-                                                codes.joinToString("|"),
-                                                fields = Geocache.FORMAT_FULL.joinToString("|"),
-                                                logsPerCache = logsPerCache,
-                                                logFields = Log.FORMAT_FULL.joinToString("|")
-                                        ).blockingGet().values
-                                )
-                            }
-                }
-    }
+    override fun liveMapGeocaches(bbox: BoundingBox, limit: Int, type: Array<String>?, difficulty: FloatRange?, terrain: FloatRange?, size: EnumSet<GeocacheSize>?, foundStatus: String?, ignoredStatus: String?, excludeMyOwn: Boolean?, logsPerCache: Int): Flowable<Geocache> = apiInstance.bbox(
+            bbox = bbox,
+            limit = limit,
+            type = type?.joinToString("|"),
+            difficulty = difficulty,
+            terrain = terrain,
+            size = size?.joinToString("|"),
+            foundStatus = foundStatus,
+            ignoredStatus = ignoredStatus,
+            excludeMyOwn = excludeMyOwn
+    ).subscribeOn(Schedulers.io())
+            .toFlowable()
+            .flatMap { (results) ->
+                Flowable.fromIterable(results)
+                        .buffer(GEOCACHES_PER_REQUEST)
+                        .flatMap { codes ->
+                            Flowable.fromIterable(
+                                    apiInstance.geocaches(
+                                            codes.joinToString("|"),
+                                            fields = Geocache.FORMAT_FULL.joinToString("|"),
+                                            logsPerCache = logsPerCache,
+                                            logFields = Log.FORMAT_FULL.joinToString("|")
+                                    ).blockingGet().values
+                            )
+                        }
+            }
 
-    override fun user(uuid: String?): Single<User> {
-        return apiInstance.user(
-                userUuid = uuid,
-                fields = (if (uuid.isNullOrEmpty()) User.FORMAT_UNSIGNED else User.FORMAT_SIGNED).joinToString("|")
-        ).subscribeOn(Schedulers.io())
-    }
+    override fun user(uuid: String?): Single<User> = apiInstance.user(
+            userUuid = uuid,
+            fields = (if (uuid.isNullOrEmpty()) User.FORMAT_UNSIGNED else User.FORMAT_SIGNED).joinToString("|")
+    ).subscribeOn(Schedulers.io())
 
 }
 

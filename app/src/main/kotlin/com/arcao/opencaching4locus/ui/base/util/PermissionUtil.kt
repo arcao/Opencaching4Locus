@@ -15,14 +15,10 @@ object PermissionUtil {
     val PERMISSION_EXTERNAL_STORAGE = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 }
 
-fun Context.verifyPermissions(grantResults: IntArray): Boolean {
-    return grantResults.none {
-        it != PackageManager.PERMISSION_GRANTED
-    }
+fun Context.verifyPermissions(grantResults: IntArray): Boolean = grantResults.none {
+    it != PackageManager.PERMISSION_GRANTED
 }
 
-fun Context.hasPermission(vararg permissions: String): Boolean {
-    return permissions.none {
-        ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_DENIED
-    }
+fun Context.hasPermission(vararg permissions: String): Boolean = permissions.none {
+    ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_DENIED
 }

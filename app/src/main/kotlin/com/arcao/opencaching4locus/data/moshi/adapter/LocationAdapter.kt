@@ -14,7 +14,5 @@ class LocationAdapter {
     }
 
     @ToJson
-    fun toJson(@StringJson location: Location): String {
-        return "${location.latitude}|${location.longitude}"
-    }
+    fun toJson(@StringJson location: Location): String = "${location.latitude}|${location.longitude}"
 }

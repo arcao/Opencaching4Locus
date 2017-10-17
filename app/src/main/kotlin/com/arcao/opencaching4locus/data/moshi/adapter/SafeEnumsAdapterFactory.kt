@@ -11,14 +11,12 @@ import com.squareup.moshi.Moshi
 import java.lang.reflect.Type
 
 class SafeEnumsAdapterFactory : JsonAdapter.Factory {
-    override fun create(type: Type?, annotations: MutableSet<out Annotation>?, moshi: Moshi?): JsonAdapter<*>? {
-        return when (type) {
-            GeocacheSize::class.java -> GeocacheSizeAdapter.INSTANCE
-            GeocacheStatus::class.java -> GeocacheStatusAdapter.INSTANCE
-            WaypointType::class.java -> WaypointTypeAdapter.INSTANCE
-            LogType::class.java -> LogTypeAdapter.INSTANCE
-            else -> null
-        }
+    override fun create(type: Type?, annotations: MutableSet<out Annotation>?, moshi: Moshi?): JsonAdapter<*>? = when (type) {
+        GeocacheSize::class.java -> GeocacheSizeAdapter.INSTANCE
+        GeocacheStatus::class.java -> GeocacheStatusAdapter.INSTANCE
+        WaypointType::class.java -> WaypointTypeAdapter.INSTANCE
+        LogType::class.java -> LogTypeAdapter.INSTANCE
+        else -> null
     }
 
     abstract class SafeEnumAdapter<T> : JsonAdapter<T>() {

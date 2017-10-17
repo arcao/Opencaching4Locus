@@ -6,7 +6,7 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 
 @PerApp
-@Component(modules = arrayOf(AndroidSupportInjectionModule::class, DataModule::class, AppModule::class, AndroidBindingModule::class))
+@Component(modules = [AndroidSupportInjectionModule::class, DataModule::class, AppModule::class, AndroidBindingModule::class])
 interface AppComponent : AndroidInjector<App> {
     @Component.Builder
     abstract class Builder : AndroidInjector.Builder<App>()

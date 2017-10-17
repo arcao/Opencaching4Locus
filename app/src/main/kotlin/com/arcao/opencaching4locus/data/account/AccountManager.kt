@@ -8,9 +8,7 @@ class AccountManager private constructor(private val context: Context) {
     }.filter { it.authenticated }
 
     companion object {
-        fun get(context: Context): AccountManager {
-            return AccountManager(context.applicationContext)
-        }
+        fun get(context: Context): AccountManager = AccountManager(context.applicationContext)
 
         private val accounts = HashMap<AccountType, Account>()
     }

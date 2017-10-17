@@ -18,38 +18,32 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-@Module(includes = arrayOf(AccountModule::class, OkApiModule::class))
+@Module(includes = [AccountModule::class, OkApiModule::class])
 object DataModule {
     @JvmStatic
     @PerApp
     @Provides
-    fun provideMoshi() : Moshi {
-        return Moshi.Builder().apply {
-            add(KotlinJsonAdapterFactory())
-            add(SafeEnumsAdapterFactory())
-            add(LocationAdapter())
-            add(DateAdapter())
-        }.build()
-    }
+    fun provideMoshi() : Moshi = Moshi.Builder().apply {
+        add(KotlinJsonAdapterFactory())
+        add(SafeEnumsAdapterFactory())
+        add(LocationAdapter())
+        add(DateAdapter())
+    }.build()
 
     @JvmStatic
     @PerApp
     @Provides
-    fun provideOkHttpClient() : OkHttpClient {
-        return OkHttpClient.Builder().apply {
-            if (BuildConfig.DEBUG) {
-                addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            }
-        }.build()
-    }
+    fun provideOkHttpClient() : OkHttpClient = OkHttpClient.Builder().apply {
+        if (BuildConfig.DEBUG) {
+            addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        }
+    }.build()
 
     @JvmStatic
     @PerApp
     @Provides
-    fun provideRetrofitBuilder(moshi: Moshi) : Retrofit.Builder {
-        return Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2ErrorHandlingCallAdapterFactory.create())
-                .addConverterFactory(ArraySeparatorConverterFactory.create())
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
-    }
+    fun provideRetrofitBuilder(moshi: Moshi) : Retrofit.Builder = Retrofit.Builder()
+            .addCallAdapterFactory(RxJava2ErrorHandlingCallAdapterFactory.create())
+            .addConverterFactory(ArraySeparatorConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
 }

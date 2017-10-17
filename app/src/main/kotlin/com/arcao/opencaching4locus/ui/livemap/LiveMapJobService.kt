@@ -51,21 +51,17 @@ class LiveMapJobService : JobService() {
         return true
     }
 
-    override fun onStopJob(parameters: JobParameters): Boolean {
-        return true
-    }
+    override fun onStopJob(parameters: JobParameters): Boolean = true
 
     @UiThread
-    private fun createLastJobObservable(subject: Subject<JobParameters>, filtered: (JobParameters) -> Unit): Observable<JobParameters> {
-        return subject
-                .observeOn(Schedulers.io())
-                .buffer(300, TimeUnit.MICROSECONDS)
-                .filter { it.isNotEmpty() }
-                .map {
-                    for (i in 0 until it.size - 1) filtered(it[i])
-                    it.last()
-                }
-    }
+    private fun createLastJobObservable(subject: Subject<JobParameters>, filtered: (JobParameters) -> Unit): Observable<JobParameters> = subject
+            .observeOn(Schedulers.io())
+            .buffer(300, TimeUnit.MICROSECONDS)
+            .filter { it.isNotEmpty() }
+            .map {
+                for (i in 0 until it.size - 1) filtered(it[i])
+                it.last()
+            }
 
     companion object {
         private const val JOB_ID = 0

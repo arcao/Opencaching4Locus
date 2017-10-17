@@ -8,13 +8,9 @@ import java.util.*
 
 class DateAdapter {
     @ToJson
-    fun toJson(date : Date) : String {
-        return date.toIso8901()
-    }
+    fun toJson(date : Date) : String = date.toIso8901()
 
     @FromJson
-    fun fromJson(date: String) : Date {
-        return date.fromIso8601()
-    }
+    fun fromJson(date: String) : Date = date.fromIso8601()
 
 }

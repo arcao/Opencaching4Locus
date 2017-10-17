@@ -123,9 +123,7 @@ class LiveMapNotificationManager @Inject constructor(
 
     }
 
-    private fun isMapVisible(intent: Intent): Boolean {
-        return intent.getBooleanExtra(VAR_B_MAP_VISIBLE, false)
-    }
+    private fun isMapVisible(intent: Intent): Boolean = intent.getBooleanExtra(VAR_B_MAP_VISIBLE, false)
 
     private fun updateNotificationHideAlarm() {
         val pendingIntent = createPendingIntent(ACTION_HIDE_NOTIFICATION)
@@ -138,7 +136,7 @@ class LiveMapNotificationManager @Inject constructor(
         notificationShown = true
 
         val builder = createNotification()
-        notificationManager.notify(AppConstants.NOTIFICATION_ID_LIVEMAP, builder.build())
+        notificationManager.notify(AppConstants.NOTIFICATION_ID_LIVE_MAP, builder.build())
     }
 
     private fun hideNotification() {
@@ -147,40 +145,38 @@ class LiveMapNotificationManager @Inject constructor(
         val pendingIntent = createPendingIntent(ACTION_HIDE_NOTIFICATION)
 
         alarmManager.cancel(pendingIntent)
-        notificationManager.cancel(AppConstants.NOTIFICATION_ID_LIVEMAP)
+        notificationManager.cancel(AppConstants.NOTIFICATION_ID_LIVE_MAP)
     }
 
-    private fun createNotification(): NotificationCompat.Builder {
-        return NotificationCompat.Builder(context, LIVE_MAP_CHANNEL).apply {
-            setOngoing(true)
-            setWhen(0) // this fix redraw issue while refreshing
-            setLocalOnly(true)
-            setCategory(NotificationCompat.CATEGORY_SERVICE)
+    private fun createNotification(): NotificationCompat.Builder = NotificationCompat.Builder(context, LIVE_MAP_CHANNEL).apply {
+        setOngoing(true)
+        setWhen(0) // this fix redraw issue while refreshing
+        setLocalOnly(true)
+        setCategory(NotificationCompat.CATEGORY_SERVICE)
 
-            val state: CharSequence
-            if (enable) {
-                setSmallIcon(R.drawable.ic_stat_oc_map)
-                state = context.getText(R.string.notify_live_map_message_enabled)
-                addAction(R.drawable.ic_pause_black_24dp, context.getText(R.string.notify_live_map_action_disable), createPendingIntent(ACTION_LIVE_MAP_DISABLE))
-            } else {
-                setSmallIcon(R.drawable.ic_stat_oc_map_disabled)
-                state = context.getText(R.string.notify_live_map_message_disabled)
-                addAction(R.drawable.ic_play_arrow_black_24dp, context.getText(R.string.notify_live_map_action_enable), createPendingIntent(ACTION_LIVE_MAP_ENABLE))
-            }
+        val state: CharSequence
+        if (enable) {
+            setSmallIcon(R.drawable.ic_stat_oc_map)
+            state = context.getText(R.string.notify_live_map_message_enabled)
+            addAction(R.drawable.ic_pause_black_24dp, context.getText(R.string.notify_live_map_action_disable), createPendingIntent(ACTION_LIVE_MAP_DISABLE))
+        } else {
+            setSmallIcon(R.drawable.ic_stat_oc_map_disabled)
+            state = context.getText(R.string.notify_live_map_message_disabled)
+            addAction(R.drawable.ic_play_arrow_black_24dp, context.getText(R.string.notify_live_map_action_enable), createPendingIntent(ACTION_LIVE_MAP_ENABLE))
+        }
 //            val pendingIntent = PendingIntent.getActivity(context, 0,
 //                    SettingsActivity.createIntent(context, LiveMapPreferenceFragment::class.java),
 //                    PendingIntent.FLAG_UPDATE_CURRENT)
 //            addAction(R.drawable.ic_settings_black_48dp, context.getText(R.string.notify_live_map_action_settings), pendingIntent)
 
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                setContentTitle(context.getText(R.string.notify_live_map))
-                setContentText(state)
-            } else {
-                setSubText(context.getText(R.string.dashboard_live_map))
-                setContentTitle(state)
-            }
-            priority = NotificationCompat.PRIORITY_MAX // always show button
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            setContentTitle(context.getText(R.string.notify_live_map))
+            setContentText(state)
+        } else {
+            setSubText(context.getText(R.string.dashboard_live_map))
+            setContentTitle(state)
         }
+        priority = NotificationCompat.PRIORITY_MAX // always show button
     }
 
     @TargetApi(Build.VERSION_CODES.O)
@@ -231,6 +227,6 @@ class LiveMapNotificationManager @Inject constructor(
             }
         }
 
-        notificationManager.notify(AppConstants.NOTIFICATION_ID_LIVEMAP, nb.build())
+        notificationManager.notify(AppConstants.NOTIFICATION_ID_LIVE_MAP, nb.build())
     }
 }

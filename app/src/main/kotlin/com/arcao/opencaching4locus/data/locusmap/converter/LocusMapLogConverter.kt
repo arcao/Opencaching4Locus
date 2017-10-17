@@ -5,24 +5,21 @@ import com.arcao.opencaching4locus.model.enums.LogType
 import com.arcao.opencaching4locus.model.response.Log
 import locus.api.objects.geocaching.GeocachingLog
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @PerApp
 class LocusMapLogConverter @Inject constructor(
         private val imageConverter: LocusMapImageConverter
 ) {
-    fun convert(log: Log): GeocachingLog {
-        return GeocachingLog().apply {
-            //id = log.uuid
-            type = convertType(log.type)
-            date = log.date?.time ?: 0
-            finder = log.user?.username
-            findersFound = log.user?.cachesFound ?: 0
-            logText = log.comment
+    fun convert(log: Log): GeocachingLog = GeocachingLog().apply {
+        //id = log.uuid
+        type = convertType(log.type)
+        date = log.date?.time ?: 0
+        finder = log.user?.username
+        findersFound = log.user?.cachesFound ?: 0
+        logText = log.comment
 
-            log.images.forEach {
-                addImage(imageConverter.convert(it))
-            }
+        log.images.forEach {
+            addImage(imageConverter.convert(it))
         }
     }
 

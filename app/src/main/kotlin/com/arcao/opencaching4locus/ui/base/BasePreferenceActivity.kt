@@ -67,25 +67,15 @@ abstract class BasePreferenceActivity : PreferenceActivity(), HasFragmentInjecto
     val supportActionBar: ActionBar?
         get() = delegate.supportActionBar
 
-    override fun getMenuInflater(): MenuInflater {
-        return delegate.menuInflater
-    }
+    override fun getMenuInflater(): MenuInflater = delegate.menuInflater
 
-    override fun setContentView(@LayoutRes layoutResID: Int) {
-        delegate.setContentView(layoutResID)
-    }
+    override fun setContentView(@LayoutRes layoutResID: Int) = delegate.setContentView(layoutResID)
 
-    override fun setContentView(view: View) {
-        delegate.setContentView(view)
-    }
+    override fun setContentView(view: View) = delegate.setContentView(view)
 
-    override fun setContentView(view: View, params: ViewGroup.LayoutParams) {
-        delegate.setContentView(view, params)
-    }
+    override fun setContentView(view: View, params: ViewGroup.LayoutParams) = delegate.setContentView(view, params)
 
-    override fun addContentView(view: View, params: ViewGroup.LayoutParams) {
-        delegate.addContentView(view, params)
-    }
+    override fun addContentView(view: View, params: ViewGroup.LayoutParams) = delegate.addContentView(view, params)
 
     override fun onPostResume() {
         super.onPostResume()
@@ -112,7 +102,5 @@ abstract class BasePreferenceActivity : PreferenceActivity(), HasFragmentInjecto
         delegate.onDestroy()
     }
 
-    override fun invalidateOptionsMenu() {
-        delegate.invalidateOptionsMenu()
-    }
+    override fun invalidateOptionsMenu() = delegate.invalidateOptionsMenu()
 }

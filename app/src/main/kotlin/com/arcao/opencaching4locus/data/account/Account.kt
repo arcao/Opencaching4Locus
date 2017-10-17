@@ -25,26 +25,20 @@ class Account(context: Context, val accountType: AccountType) {
     val accessSecret: String? get() = preferences.getString(PREF_SECRET, null)
     val userName: String? get() = preferences.getString(PREF_USERNAME, null)
 
-    fun authorize(token: OAuth1AccessToken) {
-        preferences.edit().apply {
-            putString(PREF_TOKEN, token.token)
-            putString(PREF_SECRET, token.tokenSecret)
-        }.apply()
-    }
+    fun authorize(token: OAuth1AccessToken) = preferences.edit().apply {
+        putString(PREF_TOKEN, token.token)
+        putString(PREF_SECRET, token.tokenSecret)
+    }.apply()
 
-    fun updateUser(user: User) {
-        preferences.edit().apply {
-            putString(PREF_USERNAME, user.username)
-        }.apply()
-    }
+    fun updateUser(user: User) = preferences.edit().apply {
+        putString(PREF_USERNAME, user.username)
+    }.apply()
 
-    fun remove() {
-        preferences.edit().apply {
-            remove(PREF_TOKEN)
-            remove(PREF_SECRET)
-            remove(PREF_USERNAME)
-        }.apply()
-    }
+    fun remove() = preferences.edit().apply {
+        remove(PREF_TOKEN)
+        remove(PREF_SECRET)
+        remove(PREF_USERNAME)
+    }.apply()
 
     var requestToken: OAuth1RequestToken
         get() {
@@ -55,12 +49,10 @@ class Account(context: Context, val accountType: AccountType) {
             }.apply()
             return token
         }
-        set(value) {
-            preferences.edit().apply {
-                putString(PREF_REQUEST_TOKEN, value.token)
-                putString(PREF_REQUEST_SECRET, value.tokenSecret)
-            }.apply()
-        }
+        set(value) = preferences.edit().apply {
+            putString(PREF_REQUEST_TOKEN, value.token)
+            putString(PREF_REQUEST_SECRET, value.tokenSecret)
+        }.apply()
 
     val hasRequestToken: Boolean get() = preferences.contains(PREF_REQUEST_TOKEN) && preferences.contains(PREF_REQUEST_SECRET)
 

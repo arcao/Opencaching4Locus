@@ -36,9 +36,8 @@ abstract class BasePreferenceFragment : PreferenceFragment(), HasFragmentInjecto
 
     override fun fragmentInjector(): AndroidInjector<Fragment> = childFragmentInjector
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        // empty
-    }
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) =// empty
+            Unit
 
     override fun onResume() {
         super.onResume()

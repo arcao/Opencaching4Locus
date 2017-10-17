@@ -45,7 +45,7 @@ class LiveMapBroadcastReceiver : BroadcastReceiver() {
 
         // handle event
         pu.onReceive(context, intent, object : PeriodicUpdatesHandler.OnUpdate {
-            override fun onIncorrectData() {}
+            override fun onIncorrectData() = Unit
 
             override fun onUpdate(locusVersion: LocusUtils.LocusVersion, update: UpdateContainer) {
                 // sending data back to Locus based on events if has a new map center or zoom level and map is visible

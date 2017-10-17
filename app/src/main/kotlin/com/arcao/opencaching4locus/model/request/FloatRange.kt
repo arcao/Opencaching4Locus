@@ -13,7 +13,5 @@ data class FloatRange(
             throw IllegalArgumentException("Max parameter shall be greater than min parameter")
     }
 
-    override fun toString(): String {
-        return "$min-$max"
-    }
+    override fun toString(): String = "$min-$max"
 }

@@ -21,21 +21,21 @@ abstract class AndroidBindingModule {
     @Binds
     abstract fun bindViewModelFactory(factory: AppViewModelFactory): ViewModelProvider.Factory
 
-    @ContributesAndroidInjector(modules = arrayOf(AuthenticationModule::class))
+    @ContributesAndroidInjector(modules = [AuthenticationModule::class])
     abstract fun authenticationActivity(): AuthenticationActivity
 
-    @ContributesAndroidInjector(modules = arrayOf(DashboardModule::class))
+    @ContributesAndroidInjector(modules = [DashboardModule::class])
     abstract fun dashboardActivity(): DashboardActivity
 
     @ContributesAndroidInjector
     abstract fun errorActivity(): ErrorActivity
 
-    @ContributesAndroidInjector(modules = arrayOf(LiveMapModule::class))
+    @ContributesAndroidInjector(modules = [LiveMapModule::class])
     abstract fun liveMapBroadcastReceiver(): LiveMapBroadcastReceiver
 
-    @ContributesAndroidInjector(modules = arrayOf(LiveMapModule::class))
+    @ContributesAndroidInjector(modules = [LiveMapModule::class])
     abstract fun liveMapJobService(): LiveMapJobService
 
-    @ContributesAndroidInjector(modules = arrayOf(SettingsModule::class))
+    @ContributesAndroidInjector(modules = [SettingsModule::class])
     abstract fun settingsActivity(): SettingsActivity
 }

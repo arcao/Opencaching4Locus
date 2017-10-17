@@ -20,9 +20,7 @@ class RxJava2ErrorHandlingCallAdapterFactory private constructor() : CallAdapter
     }
 
     private class RxCallAdapterWrapper(private val retrofit: Retrofit, private val wrapped: CallAdapter<Any, Any>?) : CallAdapter<Any, Any> {
-        override fun responseType(): Type {
-            return wrapped?.responseType() ?: Void.TYPE
-        }
+        override fun responseType(): Type = wrapped?.responseType() ?: Void.TYPE
 
         override fun adapt(call: Call<Any>): Any? {
             if (wrapped == null)
@@ -61,8 +59,6 @@ class RxJava2ErrorHandlingCallAdapterFactory private constructor() : CallAdapter
     }
 
     companion object {
-        fun create(): CallAdapter.Factory {
-            return RxJava2ErrorHandlingCallAdapterFactory()
-        }
+        fun create(): CallAdapter.Factory = RxJava2ErrorHandlingCallAdapterFactory()
     }
 }

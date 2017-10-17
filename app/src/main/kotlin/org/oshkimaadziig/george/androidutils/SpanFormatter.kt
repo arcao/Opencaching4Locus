@@ -44,9 +44,7 @@ object SpanFormatter {
      * additional arguments are ignored.
      * @return the formatted string (with spans).
      */
-    fun format(format: CharSequence, vararg args: Any): SpannedString {
-        return format(Locale.getDefault(), format, *args)
-    }
+    fun format(format: CharSequence, vararg args: Any): SpannedString = format(Locale.getDefault(), format, *args)
 
     /**
      * Version of [java.lang.String.format] that works on [Spanned] strings to preserve rich text formatting.

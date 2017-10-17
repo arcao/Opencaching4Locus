@@ -7,7 +7,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
-@Module(includes = arrayOf(LiveMapModule::class))
+@Module(includes = [LiveMapModule::class])
 abstract class DashboardModule {
     @Binds
     @IntoMap

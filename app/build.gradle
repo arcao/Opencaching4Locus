@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 dependencies {
     def supportVer = '26.1.0'
-    def constraintLayoutVer = '1.1.0-beta2'
+    def constraintLayoutVer = '1.1.0-beta3'
     def locusApiVer = '0.2.11'
     def timberVer = '4.5.1'
     def scribeJavaVer = '4.2.0'
@@ -23,6 +23,7 @@ dependencies {
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVer"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVer"
 
     // Android Support
     implementation "com.android.support:support-compat:$supportVer"

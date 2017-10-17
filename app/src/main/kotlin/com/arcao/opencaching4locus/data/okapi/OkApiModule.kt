@@ -17,52 +17,40 @@ object OkApiModule {
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_PL)
-    fun provideOkApiServicesPL(@ForAccountType(AccountType.OPENCACHING_PL) account: Account, okHttpClient: OkHttpClient, retrofitBuilder: Retrofit.Builder) : OkApiService {
-        return OkApiServiceImpl(OkApiServiceType.OPENCACHING_PL, account, okHttpClient, retrofitBuilder)
-    }
+    fun provideOkApiServicesPL(@ForAccountType(AccountType.OPENCACHING_PL) account: Account, okHttpClient: OkHttpClient, retrofitBuilder: Retrofit.Builder) : OkApiService = OkApiServiceImpl(OkApiServiceType.OPENCACHING_PL, account, okHttpClient, retrofitBuilder)
 
     @JvmStatic
     @PerApp
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_DE)
-    fun provideOkApiServicesDE(@ForAccountType(AccountType.OPENCACHING_DE) account: Account, okHttpClient: OkHttpClient, retrofitBuilder: Retrofit.Builder) : OkApiService {
-        return OkApiServiceImpl(OkApiServiceType.OPENCACHING_DE, account, okHttpClient, retrofitBuilder)
-    }
+    fun provideOkApiServicesDE(@ForAccountType(AccountType.OPENCACHING_DE) account: Account, okHttpClient: OkHttpClient, retrofitBuilder: Retrofit.Builder) : OkApiService = OkApiServiceImpl(OkApiServiceType.OPENCACHING_DE, account, okHttpClient, retrofitBuilder)
 
     @JvmStatic
     @PerApp
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_US)
-    fun provideOkApiServicesUS(@ForAccountType(AccountType.OPENCACHING_US) account: Account, okHttpClient: OkHttpClient, retrofitBuilder: Retrofit.Builder) : OkApiService {
-        return OkApiServiceImpl(OkApiServiceType.OPENCACHING_US, account, okHttpClient, retrofitBuilder)
-    }
+    fun provideOkApiServicesUS(@ForAccountType(AccountType.OPENCACHING_US) account: Account, okHttpClient: OkHttpClient, retrofitBuilder: Retrofit.Builder) : OkApiService = OkApiServiceImpl(OkApiServiceType.OPENCACHING_US, account, okHttpClient, retrofitBuilder)
 
     @JvmStatic
     @PerApp
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_NL)
-    fun provideOkApiServicesNL(@ForAccountType(AccountType.OPENCACHING_NL) account: Account, okHttpClient: OkHttpClient, retrofitBuilder: Retrofit.Builder) : OkApiService {
-        return OkApiServiceImpl(OkApiServiceType.OPENCACHING_NL, account, okHttpClient, retrofitBuilder)
-    }
+    fun provideOkApiServicesNL(@ForAccountType(AccountType.OPENCACHING_NL) account: Account, okHttpClient: OkHttpClient, retrofitBuilder: Retrofit.Builder) : OkApiService = OkApiServiceImpl(OkApiServiceType.OPENCACHING_NL, account, okHttpClient, retrofitBuilder)
 
     @JvmStatic
     @PerApp
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_RO)
-    fun provideOkApiServicesRO(@ForAccountType(AccountType.OPENCACHING_RO) account: Account, okHttpClient: OkHttpClient, retrofitBuilder: Retrofit.Builder) : OkApiService {
-        return OkApiServiceImpl(OkApiServiceType.OPENCACHING_RO, account, okHttpClient, retrofitBuilder)
-    }
+    fun provideOkApiServicesRO(@ForAccountType(AccountType.OPENCACHING_RO) account: Account, okHttpClient: OkHttpClient, retrofitBuilder: Retrofit.Builder) : OkApiService = OkApiServiceImpl(OkApiServiceType.OPENCACHING_RO, account, okHttpClient, retrofitBuilder)
 
     @JvmStatic
     @PerApp
     @Provides
     @IntoMap
     @ForOkApiService(OkApiServiceType.OPENCACHING_UK)
-    fun provideOkApiServicesUK(@ForAccountType(AccountType.OPENCACHING_UK) account: Account, okHttpClient: OkHttpClient, retrofitBuilder: Retrofit.Builder) : OkApiService {
-        return OkApiServiceImpl(OkApiServiceType.OPENCACHING_UK, account, okHttpClient, retrofitBuilder)
-    }
+    fun provideOkApiServicesUK(@ForAccountType(AccountType.OPENCACHING_UK) account: Account, okHttpClient: OkHttpClient, retrofitBuilder: Retrofit.Builder) : OkApiService = OkApiServiceImpl(OkApiServiceType.OPENCACHING_UK, account, okHttpClient, retrofitBuilder)
 }

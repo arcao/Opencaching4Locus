@@ -9,15 +9,13 @@ data class BoundingBox(
     constructor(minLatitude: Double, minLongitude: Double, maxLatitude: Double, maxLongitude: Double)
             : this(Location(maxLatitude, minLongitude), Location(minLatitude, maxLongitude))
 
-    override fun toString(): String {
-        // boundary box format: S|W|N|E
-        return arrayOf(
-                bottomRight.latitude,
-                topLeft.longitude,
-                topLeft.latitude,
-                bottomRight.longitude
-        ).joinToString("|")
-    }
+    override fun toString(): String =// boundary box format: S|W|N|E
+            arrayOf(
+                    bottomRight.latitude,
+                    topLeft.longitude,
+                    topLeft.latitude,
+                    bottomRight.longitude
+            ).joinToString("|")
 
     companion object {
         fun from(string: String) : BoundingBox {

@@ -21,23 +21,17 @@ abstract class BaseDialogFragment : DialogFragment(), HasFragmentInjector {
     // This is work around for the situation when method show is called after saving
     // state even if you do all right. Especially when show is called after click on
     // a button.
-    override fun show(transaction: FragmentTransaction, tag: String): Int {
-        return try {
-            super.show(transaction, tag)
-        } catch (e: IllegalStateException) {
-            // ignore
-            0
-        }
-
+    override fun show(transaction: FragmentTransaction, tag: String): Int = try {
+        super.show(transaction, tag)
+    } catch (e: IllegalStateException) {
+        // ignore
+        0
     }
 
-    override fun show(manager: FragmentManager, tag: String) {
-        try {
-            super.show(manager, tag)
-        } catch (e: IllegalStateException) {
-            // ignore
-        }
-
+    override fun show(manager: FragmentManager, tag: String) = try {
+        super.show(manager, tag)
+    } catch (e: IllegalStateException) {
+        // ignore
     }
 
     // This is to work around what is apparently a bug. If you don't have it
@@ -50,12 +44,10 @@ abstract class BaseDialogFragment : DialogFragment(), HasFragmentInjector {
     }
 
 
-    override fun dismiss() {
-        try {
-            super.dismiss()
-        } catch (e: IllegalStateException) {
-            dismissAllowingStateLoss()
-        }
+    override fun dismiss() = try {
+        super.dismiss()
+    } catch (e: IllegalStateException) {
+        dismissAllowingStateLoss()
     }
 
     internal fun isShowing(): Boolean = dialog != null && dialog.isShowing

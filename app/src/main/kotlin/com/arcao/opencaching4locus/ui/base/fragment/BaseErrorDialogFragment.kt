@@ -28,9 +28,8 @@ abstract class BaseErrorDialogFragment : BaseDialogFragment() {
         isCancelable = false
     }
 
-    internal open fun onPositiveButtonClick() {
-        // do nothing
-    }
+    internal open fun onPositiveButtonClick() =// do nothing
+            Unit
 
     @CallSuper
     internal open fun onDialogBuild(builder: AlertDialog.Builder) {

@@ -10,15 +10,9 @@ open class OpencachingOAuthProvider(serviceType: OkApiServiceType) : DefaultApi1
     private val accessTokenEndpoint = "${serviceType.endpoint}services/oauth/access_token"
     private val authorizationUrl = "${serviceType.endpoint}services/oauth/authorize"
 
-    override fun getRequestTokenEndpoint(): String {
-        return requestTokenEndpoint
-    }
+    override fun getRequestTokenEndpoint(): String = requestTokenEndpoint
 
-    override fun getAccessTokenEndpoint(): String {
-        return accessTokenEndpoint
-    }
+    override fun getAccessTokenEndpoint(): String = accessTokenEndpoint
 
-    override fun getAuthorizationUrl(requestToken: OAuth1RequestToken): String {
-        return authorizationUrl + "?interactivity=confirm_user&oauth_token=" + OAuthEncoder.encode(requestToken.token)
-    }
+    override fun getAuthorizationUrl(requestToken: OAuth1RequestToken): String = authorizationUrl + "?interactivity=confirm_user&oauth_token=" + OAuthEncoder.encode(requestToken.token)
 }
