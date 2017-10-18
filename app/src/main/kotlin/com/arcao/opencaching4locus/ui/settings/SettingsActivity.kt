@@ -70,6 +70,6 @@ class SettingsActivity : BasePreferenceActivity() {
     companion object {
         fun createIntent(context: Context): Intent = Intent(context, SettingsActivity::class.java)
         fun createIntent(context: Context, preferenceFragment: String): Intent = createIntent(context).putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, preferenceFragment)
-        fun createIntent(context: Context, preferenceFragment: Class<Any>): Intent = createIntent(context, preferenceFragment.name)
+        fun createIntent(context: Context, preferenceFragment: Class<*>): Intent = createIntent(context, preferenceFragment.name)
     }
 }

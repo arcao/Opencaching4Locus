@@ -18,6 +18,8 @@ import com.arcao.opencaching4locus.ui.base.constants.PrefConstants
 import com.arcao.opencaching4locus.ui.error.util.showError
 import com.arcao.opencaching4locus.ui.livemap.LiveMapJobService
 import com.arcao.opencaching4locus.ui.livemap.receiver.LiveMapBroadcastReceiver
+import com.arcao.opencaching4locus.ui.settings.SettingsActivity
+import com.arcao.opencaching4locus.ui.settings.fragment.LiveMapPreferenceFragment
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -164,10 +166,10 @@ class LiveMapNotificationManager @Inject constructor(
             state = context.getText(R.string.notify_live_map_message_disabled)
             addAction(R.drawable.ic_play_arrow_black_24dp, context.getText(R.string.notify_live_map_action_enable), createPendingIntent(ACTION_LIVE_MAP_ENABLE))
         }
-//            val pendingIntent = PendingIntent.getActivity(context, 0,
-//                    SettingsActivity.createIntent(context, LiveMapPreferenceFragment::class.java),
-//                    PendingIntent.FLAG_UPDATE_CURRENT)
-//            addAction(R.drawable.ic_settings_black_48dp, context.getText(R.string.notify_live_map_action_settings), pendingIntent)
+        val pendingIntent = PendingIntent.getActivity(context, 0,
+                SettingsActivity.createIntent(context, LiveMapPreferenceFragment::class.java),
+                PendingIntent.FLAG_UPDATE_CURRENT)
+        addAction(R.drawable.ic_settings_black_48dp, context.getText(R.string.notify_live_map_action_settings), pendingIntent)
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             setContentTitle(context.getText(R.string.notify_live_map))
