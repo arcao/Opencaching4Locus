@@ -9,7 +9,7 @@ dependencies {
     def constraintLayoutVer = '1.1.0-beta4'
     def locusApiVer = '0.2.15'
     def timberVer = '4.6.0'
-    def scribeJavaVer = '5.0.0'
+    def scribeJavaVer = '4.2.0' // Version 5.x.x Don't update to v5, require Java 8 Streaming API
     def okHttpVer = '3.9.1'
     def retrofitVer = '2.3.0'
     def moshiVer = '1.5.0'
@@ -19,7 +19,7 @@ dependencies {
     def rxJavaVer = '2.1.8'
     def rxAndroidVer = '2.0.1'
     def rxKotlinVer = '2.2.0'
-    def mockitoKotlinVer = "1.5.0"
+    def mockitoKotlinVer = '1.5.0'
     def kluentVer = '1.33'
 
     // Kotlin
