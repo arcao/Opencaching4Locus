@@ -5,22 +5,22 @@ apply plugin: 'kotlin-android-extensions'
 // apply plugin: 'io.fabric'
 
 dependencies {
-    def supportVer = '26.1.0'
-    def constraintLayoutVer = '1.1.0-beta3'
-    def locusApiVer = '0.2.11'
-    def timberVer = '4.5.1'
-    def scribeJavaVer = '4.2.0'
-    def okHttpVer = '3.9.0'
+    def supportVer = '27.0.2'
+    def constraintLayoutVer = '1.1.0-beta4'
+    def locusApiVer = '0.2.15'
+    def timberVer = '4.6.0'
+    def scribeJavaVer = '5.0.0'
+    def okHttpVer = '3.9.1'
     def retrofitVer = '2.3.0'
     def moshiVer = '1.5.0'
-    def lifecycleVer = "1.0.0-rc1"
-    def lifecycleVerRuntime = "1.0.3"
-    def daggerVer = '2.12'
-    def rxJavaVer = '2.1.5'
+    def lifecycleVer = '1.0.0'
+    def lifecycleVerRuntime = '1.0.3'
+    def daggerVer = '2.14.1'
+    def rxJavaVer = '2.1.8'
     def rxAndroidVer = '2.0.1'
-    def rxKotlinVer = '2.1.0'
+    def rxKotlinVer = '2.2.0'
     def mockitoKotlinVer = "1.5.0"
-    def kluentVer = '1.30'
+    def kluentVer = '1.33'
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVer"
@@ -86,8 +86,8 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     dataBinding {
         enabled = true
@@ -105,12 +105,12 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion hasProperty('devBuild') ? 26 : 21
-        targetSdkVersion 26
-        versionCode gitVersionCode()
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode hasProperty('devBuild') ? 1 : gitVersionCode()
         archivesBaseName = parent.name
-        buildConfigField 'String', 'GIT_SHA', '"' + gitSha() + '"'
-        buildConfigField 'String', 'BUILD_TIME', '"' + gitTimestamp() + '"'
+        buildConfigField 'String', 'GIT_SHA', '""'
+        buildConfigField 'String', 'BUILD_TIME', '""'
 
         buildConfigField 'String', 'OC_PL_CONSUMER_KEY', '"9w4tqST4TUNrGYQKnkgQ"'
         buildConfigField 'String', 'OC_PL_CONSUMER_SECRET', '"HpLKCKsf42k4ndmBV6wFQaVpYCYcM6SkkvVM5dTX"'
@@ -137,6 +137,9 @@ android {
         }
         release {
             versionNameSuffix ''
+
+            buildConfigField 'String', 'GIT_SHA', '"' + gitSha() + '"'
+            buildConfigField 'String', 'BUILD_TIME', '"' + gitTimestamp() + '"'
 
             //signingConfig signingConfigs.release
             minifyEnabled true
@@ -171,7 +174,4 @@ if (project.hasProperty('storeFile') &&
     android.signingConfigs.release.keyPassword = keyPassword
 } else {
     android.buildTypes.release.signingConfig = android.signingConfigs.debug
-}
-repositories {
-    mavenCentral()
 }
