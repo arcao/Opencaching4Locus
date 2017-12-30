@@ -141,7 +141,7 @@ android {
             buildConfigField 'String', 'GIT_SHA', '"' + gitSha() + '"'
             buildConfigField 'String', 'BUILD_TIME', '"' + gitTimestamp() + '"'
 
-            //signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
 
